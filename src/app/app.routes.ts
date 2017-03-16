@@ -51,6 +51,7 @@ import { AppsExplorerComponent } from './pages/apps-explorer/apps-explorer.compo
 import { AppsMailComponent } from './pages/apps-mail/apps-mail.component';
 import { MapsVectorExampleComponent } from './pages/maps-vector/maps-vector.component';
 import { DashboardEdgeComponent } from './pages/dashboard-edge/dashboard-edge.component';
+import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
 
 /**
  * Router Setting
@@ -85,6 +86,10 @@ export const ROUTES: Routes = [
   {
     path: 'dashboard-edge',
     component: DashboardEdgeComponent
+  },
+  {
+    path: 'aprendizaje',
+    component: Aprendizaje
   },
   {
     path: 'component-buttons',

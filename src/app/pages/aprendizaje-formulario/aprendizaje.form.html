@@ -1,0 +1,51 @@
+<h1 md-dialog-title>Formulario</h1>
+<div md-dialog-content>
+    <div fxLayout="column" fxLayout.xs="column">
+      <div fxFlex>
+        <md-input-container>
+            <input mdInput placeholder="TITULO" type="text"
+                       [(ngModel)]="forms.titulo" name="titulo" #titulo="ngModel" required>
+          </md-input-container>
+      </div>
+      <div fxFlex>
+          <md-input-container>
+              <input mdInput placeholder="DESCRIPCION" type="text"
+                       [(ngModel)]="forms.descripcion" name="descripcion" #descripcion="ngModel" required>
+          </md-input-container>
+      </div>
+      <div fxFlex>
+        <div fxLayout="row" fxLayout.xs="column">
+          <div fxFlex fxLayoutAlign="center center">
+              <md-input-container>
+                  <input mdInput placeholder="PREGUNTA SIN TÍTULO" type="text"
+                      [(ngModel)]="prototipo.pregunta"  name="pregunta" #pregunta="ngModel" required>
+              </md-input-container>
+          </div>
+          <div fxFlex fxLayoutAlign="center center">
+              <md-select placeholder="TIPO RESPUESTA" [(ngModel)]="tipoRespuesta">
+                  <md-option *ngFor="let respuesta of respuestas" [value]="respuesta.item">{{ respuesta.value }}</md-option>
+              </md-select>
+          </div>
+        </div>
+        <div fxLayout="column" fxLayout.xs="column">
+            <div [ngSwitch]="tipoRespuesta">
+                <div *ngSwitchCase="1"><input mdInput placeholder="ejemplo"></div>
+                <div *ngSwitchCase="2"><textarea placeholder="texto" rows="5"></textarea></div>
+                <div *ngSwitchCase="3">
+                    <md-radio-group>
+                        <md-radio-button value="1"></md-radio-button><input mdInput value="Opcion 1" name="valopt1">
+                        <md-radio-button value="2"></md-radio-button><input mdInput value="Opcion 2" name="valopt2">
+                    </md-radio-group>
+                </div>
+                <div *ngSwitchCase="4">
+                    <md-checkbox></md-checkbox><input mdInput value="Opcion" name="valopt">
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div md-dialog-actions>
+  <button md-button (click)="dialogRef.close('Option 1')">Guardar</button>
+  <button md-button (click)="dialogRef.close('Option 2')">Cancelar</button>
+</div>

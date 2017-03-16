@@ -9,6 +9,12 @@ export class MenuMock {
       faIcon: 'fa-tachometer',
       link: '/dashboard'
     },
+     {
+      name: 'aprendizaje',
+      title : 'Innovación / Apredizaje',
+      faIcon : 'fa-sliders',
+      link:'/aprendizaje'
+    },
     {
       name: 'dashboard-edge',
       title: 'Dashboard Edge',

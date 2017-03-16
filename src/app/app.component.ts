@@ -32,15 +32,6 @@ export class AppComponent implements OnInit {
               private translate: TranslateService,
               private router: Router,
               private snackBar: MdSnackBar) {
-    // Change your page title here
-    appService.getState().topnavTitle = 'Loading';
-    translate.addLangs(['en', 'zh-cn']);
-    translate.setDefaultLang(appService.getState().defaultLang);
-    this.date = new Date();
-    setInterval(() => {
-      this.date = new Date();
-    }, 1000);
-    this.snackBarRef = this.snackBar.open('Launch success!', 'Done', {duration: 5000,});
   }
 
   ngOnInit() {
@@ -105,6 +96,7 @@ export class AppComponent implements OnInit {
   toggleSidenavMenu(menuName: string, isSub: boolean, isParent: boolean) {
     if (isParent) {
       this.activeSubMenuName = this.activeSubMenuName === menuName ? null : menuName;
+
       return;
     }
 

@@ -31,7 +31,7 @@ export class AppService {
     appName: 'Lokra UI Starter',
     darkMode: false,
     defaultLang: 'en',
-    topnavTitle: 'Lokra',
+    topnavTitle: 'ScoreCard',
     messagePanelOpen: false,
     sidenavOpen: false,
     sidenavMode: 'over',

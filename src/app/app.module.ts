@@ -64,6 +64,12 @@ import { AppsExplorerComponent } from './pages/apps-explorer/apps-explorer.compo
 import { AppsMailComponent } from './pages/apps-mail/apps-mail.component';
 import { MapsVectorExampleComponent } from './pages/maps-vector/maps-vector.component';
 import { IconMaterialComponent } from './pages/icon-material/icon-material.component';
+
+// páginas sistema
+
+import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
+import { AprendizajeForm } from './pages/aprendizaje-formulario/aprendizaje.form'
+
 import { ScheduleModule } from './shared/schedule/schedule.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FileUploadModule } from 'ng2-file-upload';
@@ -85,6 +91,8 @@ import { QuillEditorComponent } from './shared/editor/quill-editor.component';
 @NgModule({
   declarations: [
     // Page
+    Aprendizaje,
+    AprendizajeForm,
     AppComponent,
     DialogExampleComponent,
     DialogThemeComponent,
@@ -186,6 +194,7 @@ import { QuillEditorComponent } from './shared/editor/quill-editor.component';
     // Customize dialog must be import here.
     DialogExampleComponent,
     DialogThemeComponent,
+    AprendizajeForm
   ],
   bootstrap: [AppComponent]
 })
