@@ -65,11 +65,6 @@ import { AppsMailComponent } from './pages/apps-mail/apps-mail.component';
 import { MapsVectorExampleComponent } from './pages/maps-vector/maps-vector.component';
 import { IconMaterialComponent } from './pages/icon-material/icon-material.component';
 
-// páginas sistema
-
-import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
-import { AprendizajeForm } from './pages/aprendizaje-formulario/aprendizaje.form'
-
 import { ScheduleModule } from './shared/schedule/schedule.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FileUploadModule } from 'ng2-file-upload';
@@ -83,6 +78,19 @@ import { DashboardEdgeComponent } from './pages/dashboard-edge/dashboard-edge.co
 import { DialogThemeComponent } from './shared/dialog/dialog-theme/dialog-theme.component';
 import { TranslateStaticLoader, TranslateLoader, TranslateModule } from 'ng2-translate';
 import { QuillEditorComponent } from './shared/editor/quill-editor.component';
+
+//firebase 
+import { AngularFireModule } from 'angularfire2'
+import { firebaseConfig } from '../environments/firebase.config'
+
+//servicios => todos los inyectables
+
+import { InnovaService } from './services/innova.service'
+
+// páginas sistema
+import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
+import { AprendizajeForm } from './pages/aprendizaje-formulario/aprendizaje.form'
+
 /**
  * Root Module
  *
@@ -176,6 +184,8 @@ import { QuillEditorComponent } from './shared/editor/quill-editor.component';
     FileUploadModule,
     CustomFormsModule,
     TreeModule,
+    //Modulo firebase inicialización
+    AngularFireModule.initializeApp(firebaseConfig),
     // Replace to your Google map API key.
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC4-U6Eo0eHV7UFGjAIO6ZRB4X5z7hWS-8'
@@ -188,7 +198,8 @@ import { QuillEditorComponent } from './shared/editor/quill-editor.component';
   ],
   providers: [
     // Global service (Global state)
-    AppService
+    AppService,
+    InnovaService
   ],
   entryComponents: [
     // Customize dialog must be import here.
