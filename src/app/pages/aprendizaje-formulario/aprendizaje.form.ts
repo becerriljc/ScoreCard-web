@@ -19,20 +19,8 @@ export class AprendizajeForm implements OnInit {
     obg:boolean = false
     htmlText: string = ''
     z : number = 1
-
-  forms: any = {
-    titulo: null,
-    descripcion: null,
-    preguntas: null
-  };
-
-  prototipo : any = {
-    pregunta : null,
-    respuesta : {
-        tipo: '',
-        value : {}
-    }
-  }
+    
+    pregunta : string 
 
   respuestas = [
     {value : 'Respuesta corta', item : 1},
