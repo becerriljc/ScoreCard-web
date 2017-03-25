@@ -1,7 +1,6 @@
 import { Component, OnInit, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { AppService } from '../../app.service';
 import { MdDialog } from '@angular/material';
-import { DialogThemeComponent } from '../../shared/dialog/dialog-theme/dialog-theme.component';
 import ChartData = Chart.ChartData;
 
 @Component({
@@ -118,7 +117,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     if (!this.appService.getState().initial) {
-      this.dialog.open(DialogThemeComponent);
       this.appService.getState().initial = true;
     }
   }

@@ -3,7 +3,7 @@ import { ROUTES } from './app.routes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
@@ -75,7 +75,6 @@ import { MediaModule } from './shared/media/media.module';
 import { WidgetModule } from './shared/widget/widget.module';
 import { CustomFormsModule } from 'ng2-validation';
 import { DashboardEdgeComponent } from './pages/dashboard-edge/dashboard-edge.component';
-import { DialogThemeComponent } from './shared/dialog/dialog-theme/dialog-theme.component';
 import { TranslateStaticLoader, TranslateLoader, TranslateModule } from 'ng2-translate';
 import { QuillEditorComponent } from './shared/editor/quill-editor.component';
 
@@ -103,7 +102,6 @@ import { AprendizajeForm } from './pages/aprendizaje-formulario/aprendizaje.form
     AprendizajeForm,
     AppComponent,
     DialogExampleComponent,
-    DialogThemeComponent,
     ComponentDialogComponent,
     DashboardComponent,
     DashboardEdgeComponent,
@@ -166,6 +164,7 @@ import { AprendizajeForm } from './pages/aprendizaje-formulario/aprendizaje.form
     BrowserAnimationsModule,
     MdTabsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     // Lokra Imports
     ScheduleModule,
@@ -204,7 +203,6 @@ import { AprendizajeForm } from './pages/aprendizaje-formulario/aprendizaje.form
   entryComponents: [
     // Customize dialog must be import here.
     DialogExampleComponent,
-    DialogThemeComponent,
     AprendizajeForm
   ],
   bootstrap: [AppComponent]

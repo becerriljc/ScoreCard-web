@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods } from 'angularfire2'
 import { EncabezadoProceso } from '../interface/proto.evaluacion'
-import { PreguntaInterface } from '../interface/pregunta.interface'
+import { Preguntas } from '../interface/pregunta.interface'
 
 @Injectable()
 export class InnovaService {
@@ -39,11 +39,8 @@ export class InnovaService {
         return this.items.push( encuesta )
     }
 
-    agregarPregunta(_clave : string, valor : any ){
-        let pregunta : PreguntaInterface = {
-            clave : _clave
-        }
-        return this.preguntas.push(pregunta)
+    agregarPregunta(obj : Preguntas){       
+        return this.preguntas.push(obj)
     }
 
     login(_email : string, _password : string) {

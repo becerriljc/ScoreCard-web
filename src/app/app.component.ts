@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { MenuMock } from './shared/mockdata/menu';
 import { SearchMock } from './shared/mockdata/search';
 import { MdDialog, MdSnackBar } from '@angular/material';
-import { DialogThemeComponent } from './shared/dialog/dialog-theme/dialog-theme.component';
 import { TranslateService } from 'ng2-translate';
 
 @Component({
@@ -145,9 +144,4 @@ export class AppComponent implements OnInit {
       }
     }
   }
-
-  openThemeDialog() {
-    let dialogRef = this.dialog.open(DialogThemeComponent);
-  }
-
 }
