@@ -1,0 +1,208 @@
+<h1 md-dialog-title>Formulario</h1>
+<div md-dialog-content>
+    <div *ngIf="coleccion.length > 0">
+        <section class="bs">
+            <table class="table table-striped table-hover table-card">
+                <thead>
+                    <tr>
+                        <th style="width:35%;">Pregunta</th>
+                        <th style="width:20%;">Respuesta</th>
+                        <th style="width:27%;">Opciones</th>
+                        <th style="width:5%;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of coleccion; let i = index">
+                        <td><span>{{ item.pregunta }}</span></td>
+                        <td><span>{{ transformaTipo(item.tipo) }}</span></td>
+                        <td>
+                        </td>
+                        <td>
+                            <div class="example-tooltip-host" mdTooltip="Remover pregunta" mdTooltipPosition="above">
+                                <a md-icon-button (click)="remPregunta(i)">
+                                    <md-icon>clear</md-icon>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+        </section>
+    </div>
+    <form [formGroup] = "askForm"  (ngSubmit)="guardar(askForm)" novalidate>
+        <!-- Inicia datos básicos formulario -->
+        <div fxLayout="row">
+            <div fxFlex="60" fxLayoutAlign="center center">
+                <md-input-container>
+                    <input  mdInput 
+                        placeholder="Pregunta sin título"
+                        formControlName="pregunta">
+                </md-input-container>
+            </div>
+            <div fxFlex></div>
+            <div fxFlex="30" fxLayoutAlign="center center">
+                <md-select 
+                    placeholder="Tipo Respuesta" 
+                    formControlName="tipo">
+                    <md-option *ngFor="let respuesta of respuestas" [value]="respuesta.value">
+                        {{ respuesta.item }}
+                     </md-option>
+                </md-select>
+            </div>
+            <div fxFlex fxLayoutAlign="center center">
+                <div class="example-tooltip-host" mdTooltip="Añadir pregunta" mdTooltipPosition="above">
+                    <button md-button 
+                        type="submit"
+                        [disabled]="validaForm()"> 
+                        <md-icon>add_circle</md-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--  Termina datos básicos formulario-->
+        <!-- Inicia control de validaciones -->
+        <div fxLayout="row">
+            <div fxFlex="60">
+                <div *ngIf="askForm.controls['pregunta'].errors?.required && askForm.controls['pregunta'].touched">
+                    <span class="detError">Es necesario conocer el contenido de la pregunta.</span>
+                </div>
+                <div *ngIf="askForm.controls['pregunta'].errors?.minlength && askForm.controls['pregunta'].touched">
+                    <span class="detError">Debe contener al menos cinco carácteres.</span>
+                </div>
+            </div>
+            <div fxFlex>
+                <div *ngIf="askForm.controls['tipo'].errors?.required && askForm.controls['tipo'].touched">
+                    <span class="detError">Indica el tipo de respuesta a la pregunta.</span>
+                </div>
+            </div>
+        </div>
+        <!-- Termina control de validaciones -->
+        <!-- Inicia desplegado de selección -->
+        <div fxLayout="column" [ngSwitch]="askForm.value.tipo">
+            <div fxFlex *ngSwitchCase="1">
+                <md-input-container>
+                    <input mdInput placeholder="Pregunta realizada" disabled value="Texto de Respuesta Corta">
+                </md-input-container>
+            </div>
+            <div fxFlex *ngSwitchCase="2">
+                <md-input-container>
+                    <input mdInput placeholder="Pregunta realizada" disabled value="Texto de Respuesta Larga">
+                </md-input-container>
+            </div>
+            <div fxFlex *ngSwitchCase="3">
+                <div formArrayName="opciones">
+                    <div fxLayout="column">
+                        <div fxFlex *ngFor="let opc of askForm.controls['opciones'].controls; let i=index">
+                            <div fxLayout="row">
+                                <div fxFlex fxLayoutAlign="center center">
+                                    <md-radio-button value="1" disabled></md-radio-button>
+                                </div>
+                                <div fxFlex="80" fxLayoutAlign="center center">
+                                    <div [formGroupName]="i" class="espTotal">
+                                        <md-input-container>
+                                            <input mdInput placeholder="Respuesta" formControlName="valor"> 
+                                        </md-input-container>
+                                    </div>
+                                </div>
+                                <div fxFlex fxLayoutAlign="center center">
+                                    <div class="example-tooltip-host" mdTooltip="Remover" mdTooltipPosition="above" *ngIf="askForm.value.opciones.length > 1">
+                                        <button md-button (click)="removerValor(i)">
+                                            <md-icon>clear</md-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxFlex>
+                            <div fxLayout="row">
+                                <div fxFlex></div>
+                                <div fxFlex="80" fxLayoutAlign="start center">
+                                    <button md-button (click)="agregarValor()">Añadir opción</button>
+                                </div>
+                                <div fxFlex></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex *ngSwitchCase="4">
+                <div formArrayName="opciones">
+                    <div fxLayout="column">
+                        <div fxFlex *ngFor="let opc of askForm.controls['opciones'].controls; let i=index">
+                            <div fxLayout="row">
+                                <div fxFlex fxLayoutAlign="center center">
+                                    <md-checkbox  disabled></md-checkbox>
+                                </div>
+                                <div fxFlex="80" fxLayoutAlign="center center">
+                                    <div [formGroupName]="i" class="espTotal">
+                                        <md-input-container>
+                                            <input mdInput placeholder="Respuesta" formControlName="valor"> 
+                                        </md-input-container>
+                                    </div>
+                                </div>
+                                <div fxFlex fxLayoutAlign="center center">
+                                    <div class="example-tooltip-host" mdTooltip="Remover" mdTooltipPosition="above" *ngIf="askForm.value.opciones.length > 1">
+                                        <button md-button (click)="removerValor(i)">
+                                            <md-icon>clear</md-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxFlex>
+                            <div fxLayout="row">
+                                <div fxFlex></div>
+                                <div fxFlex="80" fxLayoutAlign="start center">
+                                    <button md-button (click)="agregarValor()">Añadir opción</button>
+                                </div>
+                                <div fxFlex></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex *ngSwitchCase="5">
+                <div formArrayName="opciones">
+                    <div fxLayout="column">
+                        <div fxFlex *ngFor="let opc of askForm.controls['opciones'].controls; let i=index">
+                            <div fxLayout="row">
+                                <div fxFlex fxLayoutAlign="center center">
+                                    <span class="desp">Opc. {{i + 1}}</span>
+                                </div>
+                                <div fxFlex="80" fxLayoutAlign="center center">
+                                    <div [formGroupName]="i" class="espTotal">
+                                        <md-input-container>
+                                            <input mdInput placeholder="Respuesta" formControlName="valor"> 
+                                        </md-input-container>
+                                    </div>
+                                </div>
+                                <div fxFlex fxLayoutAlign="center center">
+                                    <div class="example-tooltip-host" mdTooltip="Remover" mdTooltipPosition="above" *ngIf="askForm.value.opciones.length > 1">
+                                        <button md-button (click)="removerValor(i)">
+                                            <md-icon>clear</md-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxFlex>
+                            <div fxLayout="row">
+                                <div fxFlex></div>
+                                <div fxFlex="80" fxLayoutAlign="start center">
+                                    <button md-button (click)="agregarValor()">Añadir opción</button>
+                                </div>
+                                <div fxFlex></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Termina desplegado de selección -->
+    </form>
+</div>
+<div md-dialog-actions>
+    <button md-button (click)="dialogRef.close('Option 1')">Guardar</button>
+    <button md-button (click)="dialogRef.close('Option 2')">Cancelar</button>
+</div>

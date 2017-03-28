@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+
 import { ComponentDialogComponent } from './pages/component-dialog/component-dialog.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ComponentButtonsComponent } from './pages/component-buttons/component-buttons.component';
@@ -53,6 +54,8 @@ import { MapsVectorExampleComponent } from './pages/maps-vector/maps-vector.comp
 import { DashboardEdgeComponent } from './pages/dashboard-edge/dashboard-edge.component';
 import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
 
+import { ServPrueba } from './pages/app_serv_pruebas/serv.component'
+
 /**
  * Router Setting
  *
@@ -86,6 +89,10 @@ export const ROUTES: Routes = [
   {
     path: 'dashboard-edge',
     component: DashboardEdgeComponent
+  },
+  {
+    path: 'servPrueba',
+    component: ServPrueba
   },
   {
     path: 'aprendizaje',

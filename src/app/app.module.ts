@@ -1,5 +1,6 @@
 import * as $ from 'jquery';
-import { ROUTES } from './app.routes';
+import { ROUTES } from './app.routes'
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -83,13 +84,13 @@ import { AngularFireModule } from 'angularfire2'
 import { firebaseConfig } from '../environments/firebase.config'
 
 //servicios => todos los inyectables
-
 import { InnovaService } from './services/innova.service'
 
 // páginas sistema
 import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
 import { AprendizajeForm } from './pages/aprendizaje-formulario/aprendizaje.form'
-
+import { ServPrueba } from './pages/app_serv_pruebas/serv.component'
+import { GeneraForm } from './pages/apps-forms/form.component'
 /**
  * Root Module
  *
@@ -100,6 +101,8 @@ import { AprendizajeForm } from './pages/aprendizaje-formulario/aprendizaje.form
     // Page
     Aprendizaje,
     AprendizajeForm,
+    GeneraForm,
+    ServPrueba,
     AppComponent,
     DialogExampleComponent,
     ComponentDialogComponent,
@@ -203,7 +206,8 @@ import { AprendizajeForm } from './pages/aprendizaje-formulario/aprendizaje.form
   entryComponents: [
     // Customize dialog must be import here.
     DialogExampleComponent,
-    AprendizajeForm
+    AprendizajeForm,
+    GeneraForm
   ],
   bootstrap: [AppComponent]
 })

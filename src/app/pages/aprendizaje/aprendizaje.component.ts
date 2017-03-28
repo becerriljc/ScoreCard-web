@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core'
 import { AppService } from '../../app.service'
 import { MdDialog } from '@angular/material'
 import { AprendizajeForm } from '../aprendizaje-formulario/aprendizaje.form'
+import { GeneraForm } from '../apps-forms/form.component'
 import { InnovaService } from '../../services/innova.service'
 
 @Component({
@@ -70,8 +71,8 @@ export class Aprendizaje implements OnInit{
     }
 
     creaFormulario(llave : string ){
-        let dialogRef = this.dialog.open(AprendizajeForm, {
-            width: '700px',
+        let dialogRef = this.dialog.open(GeneraForm, {
+            width: '800px',
             height: '500px'
         })
         dialogRef.componentInstance.key = llave
