@@ -91,10 +91,6 @@ export const ROUTES: Routes = [
     component: DashboardEdgeComponent
   },
   {
-    path: 'servPrueba',
-    component: ServPrueba
-  },
-  {
     path: 'aprendizaje',
     component: Aprendizaje
   },

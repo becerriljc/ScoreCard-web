@@ -9,12 +9,6 @@ export class MenuMock {
       faIcon: 'fa-tachometer',
       link: '/dashboard'
     },
-    {
-      name: 'servPrueba',
-      title: 'Formularios Pruebas',
-      faIcon: 'fa-tachometer',
-      link: '/servPrueba'
-    },
      {
       name: 'aprendizaje',
       title : 'Innovación / Apredizaje',

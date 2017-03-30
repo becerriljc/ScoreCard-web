@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms'
 import { MdDialogRef } from '@angular/material'
 import { MediaChange } from '@angular/flex-layout'
+import  { InnovaService } from '../../services/innova.service'
 
 //Interfaces preguntas
-import { Preguntas } from '../../interface/pregunta.interface'
+import { Preguntas } from '../../interface/item.interface'
 
 @Component({
     selector : 'form-preguntas',
@@ -22,6 +23,14 @@ export class GeneraForm implements OnInit {
 
     private coleccion : Preguntas[] = []
 
+    private single : Preguntas = {
+        pregunta : '',
+        tipo : 0,
+        opciones : [{
+            valor : ''
+        }]
+    }
+
     key : string
     
     respuestas = [
@@ -32,10 +41,20 @@ export class GeneraForm implements OnInit {
         {item : 'Desplegar', value: 5}
     ]
 
-    constructor(private _fb : FormBuilder){}
+    constructor(
+        private _fb : FormBuilder,
+        public _is : InnovaService,
+        private dialogRef: MdDialogRef<GeneraForm>){}
     
     ngOnInit(){
-        this.askForm = this._fb.group({
+        this._is.cargaPreguntas(this.key).subscribe(() => {
+            console.log('estamos dentro con ', this.key)
+        })
+        this.askForm = this.initForm()
+    }
+
+    initForm() {
+        return this._fb.group({
             pregunta : ['', [Validators.required, Validators.minLength(4)]],
             tipo : [0, [Validators.required, Validators.pattern(this.validaNum)]],
             opciones : this._fb.array([
@@ -62,6 +81,7 @@ export class GeneraForm implements OnInit {
 
     guardar(modelo : FormGroup){
         this.coleccion.push(modelo.value)
+        this.askForm = this.initForm()
     }
 
     validaForm() : boolean {
@@ -88,11 +108,12 @@ export class GeneraForm implements OnInit {
         return result
     }
 
-    guardarDB(){
-    }
-
     remPregunta(index : number){
         this.coleccion.splice(index,1)
+    }
+
+    editarPregunta(index : number){
+        console.log(index)
     }
 
     transformaTipo(opc : number) : string {
@@ -111,4 +132,17 @@ export class GeneraForm implements OnInit {
         }
         return resp
     }
+
+    almacenar(){
+        if(this.coleccion.length > 0){
+            this._is.insertaPreguntas(this.coleccion)
+            this.coleccion = []
+            this.dialogRef.close('guardar')
+        }
+    }
+
+    cerrarDialogo(){
+        this.dialogRef.close('cerrar')
+    }
+
 }

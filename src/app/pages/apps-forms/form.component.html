@@ -6,28 +6,30 @@
                 <thead>
                     <tr>
                         <th style="width:35%;">Pregunta</th>
-                        <th style="width:20%;">Respuesta</th>
-                        <th style="width:27%;">Opciones</th>
-                        <th style="width:5%;"></th>
+                        <th style="width:20%;">Tipo</th>
+                        <th>Opciones</th>
+                        <th style="width:20%;" class="actions">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of coleccion; let i = index">
-                        <td><span>{{ item.pregunta }}</span></td>
-                        <td><span>{{ transformaTipo(item.tipo) }}</span></td>
-                        <td>
+                    <tr *ngFor="let obj of coleccion; let k=index">
+                        <td>{{ obj.pregunta }}</td>
+                        <td>{{ transformaTipo(obj.tipo) }}</td>
+                        <td *ngIf="obj.tipo == 1 || obj.tipo == 2">N/A</td>
+                        <td *ngIf="obj.tipo != 1 && obj.tipo != 2">
+                            <ul><li *ngFor="let w of obj.opciones">{{ w.valor }}</li></ul>
                         </td>
                         <td>
-                            <div class="example-tooltip-host" mdTooltip="Remover pregunta" mdTooltipPosition="above">
-                                <a md-icon-button (click)="remPregunta(i)">
-                                    <md-icon>clear</md-icon>
-                                </a>
+                            <div class="example-tooltip-host enLinea" mdTooltip="Editar" mdTooltipPosition="above" (click)="editarPregunta(k)">
+                                <a md-icon-button><md-icon>edit</md-icon></a>
+                            </div>
+                            <div class="example-tooltip-host enLinea" mdTooltip="Eliminar" mdTooltipPosition="above" (click)="remPregunta(k)">
+                                <a md-icon-button><md-icon>clear</md-icon></a>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <br />
         </section>
     </div>
     <form [formGroup] = "askForm"  (ngSubmit)="guardar(askForm)" novalidate>
@@ -118,7 +120,7 @@
                             <div fxLayout="row">
                                 <div fxFlex></div>
                                 <div fxFlex="80" fxLayoutAlign="start center">
-                                    <button md-button (click)="agregarValor()">Añadir opción</button>
+                                    <div (click)="agregarValor()">Añadir opción</div>
                                 </div>
                                 <div fxFlex></div>
                             </div>
@@ -154,7 +156,7 @@
                             <div fxLayout="row">
                                 <div fxFlex></div>
                                 <div fxFlex="80" fxLayoutAlign="start center">
-                                    <button md-button (click)="agregarValor()">Añadir opción</button>
+                                    <div (click)="agregarValor()">Añadir opción</div>
                                 </div>
                                 <div fxFlex></div>
                             </div>
@@ -190,7 +192,7 @@
                             <div fxLayout="row">
                                 <div fxFlex></div>
                                 <div fxFlex="80" fxLayoutAlign="start center">
-                                    <button md-button (click)="agregarValor()">Añadir opción</button>
+                                    <div (click)="agregarValor()">Añadir opción</div>
                                 </div>
                                 <div fxFlex></div>
                             </div>
@@ -203,6 +205,6 @@
     </form>
 </div>
 <div md-dialog-actions>
-    <button md-button (click)="dialogRef.close('Option 1')">Guardar</button>
-    <button md-button (click)="dialogRef.close('Option 2')">Cancelar</button>
+    <button md-button (click)="almacenar()">Guardar</button>
+    <button md-button (click)="cerrarDialogo()">Cerrar</button>
 </div>

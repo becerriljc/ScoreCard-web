@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
-import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods } from 'angularfire2'
-import { EncabezadoProceso } from '../interface/proto.evaluacion'
-import { Preguntas } from '../interface/pregunta.interface'
+import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods, FirebaseObjectObservable } from 'angularfire2'
+import { Encabezado } from '../interface/encabezado.interface'
+import { Preguntas, Conjunto } from '../interface/item.interface'
 
 @Injectable()
 export class InnovaService {
@@ -9,11 +9,23 @@ export class InnovaService {
     items: FirebaseListObservable<any[]>
     preguntas : FirebaseListObservable<any[]>
 
+    item : FirebaseListObservable<any[]>
+
     constructor( private af : AngularFire ) { }
 
     cargaPreguntas(llave : string){
-        this.preguntas = this.af.database.list('/iQOtBOgCQTagAxU7UF836H8OR9t2/procesos/' + llave + '/preguntas')
+        var text = '/iQOtBOgCQTagAxU7UF836H8OR9t2/procesos/' + llave + '/preguntas'
+        this.preguntas = this.af.database.list(text)
         return this.preguntas
+    }
+
+    cargaEvaluacion(llave : string){
+        var text = '/iQOtBOgCQTagAxU7UF836H8OR9t2/procesos/' + llave
+        var data : any = null
+        this.af.database.object(text).forEach(item => {
+            data = item
+        })
+        return data
     }
 
     cargaResult(){
@@ -31,7 +43,7 @@ export class InnovaService {
     }
 
     agregarEncuesta(_titulo : string, _desc : string){
-        let encuesta : EncabezadoProceso = {
+        let encuesta : Encabezado = {
             titulo: _titulo,
             descripcion : _desc
         }
@@ -57,4 +69,19 @@ export class InnovaService {
         this.af.auth.logout()
     }
 
+    insertaPreguntas(coleccion : any[]){
+        for(var i = 0; i < coleccion.length; i++){
+            this.preguntas.push(coleccion[i])
+        }
+    }
+
+    resultadoVector(llave : string){
+        var data : any[] = []
+        var text = '/iQOtBOgCQTagAxU7UF836H8OR9t2/procesos/' + llave + '/preguntas'
+        this.af.database.list(text).forEach(result => {
+            data.push(result)
+        })
+        console.log(data[0])
+        return data[0]
+    }
 }

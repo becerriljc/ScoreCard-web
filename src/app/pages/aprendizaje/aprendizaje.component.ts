@@ -3,6 +3,9 @@ import { AppService } from '../../app.service'
 import { MdDialog } from '@angular/material'
 import { AprendizajeForm } from '../aprendizaje-formulario/aprendizaje.form'
 import { GeneraForm } from '../apps-forms/form.component'
+import { VistaPrevia } from '../visor-cuestionarios/visor.component'
+
+//servicios firebase
 import { InnovaService } from '../../services/innova.service'
 
 @Component({
@@ -47,10 +50,6 @@ export class Aprendizaje implements OnInit{
     titulo : string = ''
     descripcion : string = ''
 
-    vistaPrevia(llave : string){
-        console.log('vista previa')
-    }
-
     eliminaItem(llave : string){
         this._is.eliminaEncuesta(llave)
     }
@@ -58,7 +57,6 @@ export class Aprendizaje implements OnInit{
     agregarForm(){
         var _tit = this.titulo.trim()
         var _desc = this.descripcion.trim()
-        console.log('Titulo', _tit.length, 'Descripción', _desc.length)
         if(_tit.length == 0 || _desc.length == 0){
             return
         }
@@ -73,11 +71,23 @@ export class Aprendizaje implements OnInit{
     creaFormulario(llave : string ){
         let dialogRef = this.dialog.open(GeneraForm, {
             width: '800px',
-            height: '500px'
+            height: '550px'
         })
         dialogRef.componentInstance.key = llave
         dialogRef.afterClosed().subscribe(result => {
-            this.selectedOption = result;
+            console.log(result)
+        }) 
+    }
+
+    vistaPrevia(llave : string){
+        console.log('abrimos vista previa')
+        let dialogRef = this.dialog.open(VistaPrevia, {
+            width: '850px',
+            height: '550px'
+        })
+        dialogRef.componentInstance.key = llave
+        dialogRef.afterClosed().subscribe(result => {
+            console.log(result)
         }) 
     }
 }

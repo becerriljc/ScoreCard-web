@@ -88,9 +88,8 @@ import { InnovaService } from './services/innova.service'
 
 // páginas sistema
 import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
-import { AprendizajeForm } from './pages/aprendizaje-formulario/aprendizaje.form'
-import { ServPrueba } from './pages/app_serv_pruebas/serv.component'
 import { GeneraForm } from './pages/apps-forms/form.component'
+import { VistaPrevia } from './pages/visor-cuestionarios/visor.component'
 /**
  * Root Module
  *
@@ -100,9 +99,8 @@ import { GeneraForm } from './pages/apps-forms/form.component'
   declarations: [
     // Page
     Aprendizaje,
-    AprendizajeForm,
     GeneraForm,
-    ServPrueba,
+    VistaPrevia,
     AppComponent,
     DialogExampleComponent,
     ComponentDialogComponent,
@@ -206,8 +204,8 @@ import { GeneraForm } from './pages/apps-forms/form.component'
   entryComponents: [
     // Customize dialog must be import here.
     DialogExampleComponent,
-    AprendizajeForm,
-    GeneraForm
+    GeneraForm,
+    VistaPrevia
   ],
   bootstrap: [AppComponent]
 })
