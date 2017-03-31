@@ -14,7 +14,7 @@
                 <tbody>
                     <tr *ngFor="let obj of coleccion; let k=index">
                         <td>{{ obj.pregunta }}</td>
-                        <td>{{ transformaTipo(obj.tipo) }}</td>
+                        <td>{{ _fs.transformaTipo(obj.tipo) }}</td>
                         <td *ngIf="obj.tipo == 1 || obj.tipo == 2">N/A</td>
                         <td *ngIf="obj.tipo != 1 && obj.tipo != 2">
                             <ul><li *ngFor="let w of obj.opciones">{{ w.valor }}</li></ul>
@@ -47,7 +47,7 @@
                 <md-select 
                     placeholder="Tipo Respuesta" 
                     formControlName="tipo">
-                    <md-option *ngFor="let respuesta of respuestas" [value]="respuesta.value">
+                    <md-option *ngFor="let respuesta of _fs.respuestas" [value]="respuesta.value">
                         {{ respuesta.item }}
                      </md-option>
                 </md-select>

@@ -5,6 +5,8 @@ import { AprendizajeForm } from '../aprendizaje-formulario/aprendizaje.form'
 import { GeneraForm } from '../apps-forms/form.component'
 import { VistaPrevia } from '../visor-cuestionarios/visor.component'
 
+import {GenerarFormComponent } from '../generar-form/generar-form.component'
+
 //servicios firebase
 import { InnovaService } from '../../services/innova.service'
 

@@ -1,7 +1,7 @@
  export interface Caracteristica {
     titulo : string
     descripcion : string
-    preguntas ? : Preguntas[]
+    preguntas : Preguntas[]
 }
 
 export interface Preguntas {

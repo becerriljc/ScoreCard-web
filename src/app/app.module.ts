@@ -85,11 +85,13 @@ import { firebaseConfig } from '../environments/firebase.config'
 
 //servicios => todos los inyectables
 import { InnovaService } from './services/innova.service'
+import { FuncionesService } from './services/funciones.service'
 
 // páginas sistema
 import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
 import { GeneraForm } from './pages/apps-forms/form.component'
-import { VistaPrevia } from './pages/visor-cuestionarios/visor.component'
+import { VistaPrevia } from './pages/visor-cuestionarios/visor.component';
+import { GenerarFormComponent } from './pages/generar-form/generar-form.component'
 /**
  * Root Module
  *
@@ -157,7 +159,8 @@ import { VistaPrevia } from './pages/visor-cuestionarios/visor.component'
     AppsCalendarComponent,
     AppsExplorerComponent,
     AppsMailComponent,
-    QuillEditorComponent
+    QuillEditorComponent,
+    GenerarFormComponent
   ],
   imports: [
     // Angular Imports
@@ -199,7 +202,8 @@ import { VistaPrevia } from './pages/visor-cuestionarios/visor.component'
   providers: [
     // Global service (Global state)
     AppService,
-    InnovaService
+    InnovaService,
+    FuncionesService
   ],
   entryComponents: [
     // Customize dialog must be import here.

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms'
-import { MdDialogRef } from '@angular/material'
 import { MediaChange } from '@angular/flex-layout'
 
 //servicios 
@@ -8,29 +7,30 @@ import  { InnovaService } from '../../services/innova.service'
 import { FuncionesService } from '../../services/funciones.service'
 
 //Interfaces preguntas
-import { Preguntas } from '../../interface/item.interface'
+import { Caracteristica, Preguntas, Conjunto } from '../../interface/item.interface'
 
 @Component({
-    selector : 'form-preguntas',
-    templateUrl: './form.component.html',
-    styleUrls: [
-        './form.component.scss'
-    ]
+  selector: 'app-generar-form',
+  templateUrl: './generar-form.component.html',
+  styleUrls : ['./generar-form.component.scss']
 })
-
-export class GeneraForm implements OnInit {
-
+export class GenerarFormComponent implements OnInit {
+    
     private validaNum: string = '^[1-5]{1}$' 
     
     public  askForm : FormGroup
 
-    private coleccion : Preguntas[] = []
+    private encuesta : Caracteristica = null
 
-    private single : Preguntas = {
-        pregunta : '',
-        tipo : 0,
-        opciones : [{
-            valor : ''
+    private single : Caracteristica = {
+        titulo: '',
+        descripcion : '',
+        preguntas : [{
+            pregunta : '',
+            tipo : 0,
+            opciones : [{
+                valor : ''
+            }]
         }]
     }
 
@@ -39,17 +39,26 @@ export class GeneraForm implements OnInit {
     constructor(
         private _fb : FormBuilder,
         public _is : InnovaService,
-        public _fs : FuncionesService,
-        private dialogRef: MdDialogRef<GeneraForm>){}
-    
-    ngOnInit(){
-        this._is.cargaPreguntas(this.key).subscribe(() => {
+        public _fs : FuncionesService){}
+
+    ngOnInit() {
+      this._is.cargaPreguntas(this.key).subscribe(() => {
             console.log('estamos dentro con ', this.key)
         })
         this.askForm = this.initForm()
     }
 
-    initForm() {
+    initForm(){
+        return this._fb.group({
+            titulo : ['', [Validators.required, Validators.minLength(4)]],
+            descripcion : ['', Validators.minLength(4)],
+            preguntas : this._fb.array([
+                this.getPreguntas()
+            ])
+        })
+    }
+
+    getPreguntas(){
         return this._fb.group({
             pregunta : ['', [Validators.required, Validators.minLength(4)]],
             tipo : [0, [Validators.required, Validators.pattern(this.validaNum)]],
@@ -65,9 +74,10 @@ export class GeneraForm implements OnInit {
         })
     }
 
-    agregarValor(){
-        const control = <FormArray>this.askForm.controls['opciones']
-        control.push(this.getValor())
+    agregarValor(index : number){
+        console.log('Index ',index)
+        const control = <FormArray>this.askForm.controls.preguntas
+        //control.push(this.getValor())
     }
 
     removerValor(i : number){
@@ -76,15 +86,16 @@ export class GeneraForm implements OnInit {
     }
 
     guardar(modelo : FormGroup){
-        this.coleccion.push(modelo.value)
-        this.askForm = this.initForm()
+       // this.coleccion.push(modelo.value)
+       console.log(modelo)
+        //this.askForm = this.initForm()
     }
 
     validaForm() : boolean {
-        if( (this.askForm.value.tipo != 1) && (this.askForm.value.tipo != 2) ){
+        /*if( (this.askForm.value.tipo != 1) && (this.askForm.value.tipo != 2) ){
             return this.validaCamposVacios()
-        }
-        return this.askForm.invalid
+        } */
+        return this.askForm.invalid 
     }
 
     validaCamposVacios() : boolean {
@@ -105,7 +116,7 @@ export class GeneraForm implements OnInit {
     }
 
     remPregunta(index : number){
-        this.coleccion.splice(index,1)
+       // this.coleccion.splice(index,1)
     }
 
     editarPregunta(index : number){
@@ -113,15 +124,10 @@ export class GeneraForm implements OnInit {
     }
 
     almacenar(){
-        if(this.coleccion.length > 0){
+       /* if(this.coleccion.length > 0){
             this._is.insertaPreguntas(this.coleccion)
             this.coleccion = []
-            this.dialogRef.close('guardar')
-        }
-    }
-
-    cerrarDialogo(){
-        this.dialogRef.close('cerrar')
+        }*/
     }
 
 }
