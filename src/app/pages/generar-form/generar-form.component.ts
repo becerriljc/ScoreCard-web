@@ -16,7 +16,9 @@ import { Caracteristica, Preguntas, Conjunto } from '../../interface/item.interf
 })
 export class GenerarFormComponent implements OnInit {
     
-    private validaNum: string = '^[1-5]{1}$' 
+    private validaNum: string = '[1-5]{1}$'
+
+    private validaText : string = '[a-zA-Z0-9_].+$'
     
     public  askForm : FormGroup
 
@@ -50,7 +52,7 @@ export class GenerarFormComponent implements OnInit {
 
     initForm(){
         return this._fb.group({
-            titulo : ['', [Validators.required, Validators.minLength(4)]],
+            titulo : ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.validaText)]],
             descripcion : ['', Validators.minLength(4)],
             preguntas : this._fb.array([
                 this.getPreguntas()
@@ -70,32 +72,35 @@ export class GenerarFormComponent implements OnInit {
 
     getValor(){
         return this._fb.group({
-            valor : ['', Validators.minLength(2)]
+            valor : ['', [Validators.minLength(2)]]
         })
     }
 
-    agregarValor(index : number){
-        console.log('Index ',index)
-        const control = <FormArray>this.askForm.controls.preguntas
-        //control.push(this.getValor())
+    accionesOpciones(opc: FormGroup, act : number, index : number){
+        const control = <FormArray>opc.controls['opciones']
+        if(act == 1){
+            control.push(this.getValor())
+        }else{
+            control.removeAt(index)
+        }
     }
 
-    removerValor(i : number){
-        const control = <FormArray>this.askForm.controls['opciones']
-        control.removeAt(i)
+    accionesPreguntas(act : number, index : number){
+        const control = <FormArray> this.askForm.controls['preguntas']
+        if(act == 1){
+            control.push(this.getPreguntas())
+        }else{
+            control.removeAt(index)
+        }
     }
 
     guardar(modelo : FormGroup){
-       // this.coleccion.push(modelo.value)
        console.log(modelo)
-        //this.askForm = this.initForm()
+       this.askForm = this.initForm()
     }
 
     validaForm() : boolean {
-        /*if( (this.askForm.value.tipo != 1) && (this.askForm.value.tipo != 2) ){
-            return this.validaCamposVacios()
-        } */
-        return this.askForm.invalid 
+        return this.validaCamposVacios()
     }
 
     validaCamposVacios() : boolean {
@@ -103,16 +108,26 @@ export class GenerarFormComponent implements OnInit {
          * Si la opción es distinta a 1 ó 2 entonces verifico que los campos no esten vacíos
          */
         var i = 0
-        var result = false;
-
-        while( (i < this.askForm.value.opciones.length) && !result ){
-            if( this.askForm.value.opciones[i].valor == ""){
+        var result = false
+        while( (i < this.askForm.value.preguntas.length) && !result){
+            if ( this.askForm.value.preguntas[i].tipo == 0){
                 result = true
             }else{
-                i++
+                if( (this.askForm.value.preguntas[i].tipo != 1) && (this.askForm.value.preguntas[i].tipo != 2)){
+                    var j = 0
+                    while( (j < this.askForm.value.preguntas[i].opciones.length) && !result ){
+                        if(this.askForm.value.preguntas[i].opciones[j].valor.trim() == ""){
+                            result = true
+                        }else{
+                            j++
+                        }
+                    }
+                }
             }
+            i++
         }
-        return result
+        
+        return (result || this.askForm.invalid)
     }
 
     remPregunta(index : number){
