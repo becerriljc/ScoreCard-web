@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods, FirebaseObjectObservable } from 'angularfire2'
 import { Encabezado } from '../interface/encabezado.interface'
-import { Preguntas, Conjunto } from '../interface/item.interface'
+import { Caracteristica, Preguntas, Conjunto } from '../interface/item.interface'
 
 @Injectable()
 export class InnovaService {
@@ -11,7 +11,21 @@ export class InnovaService {
 
     item : FirebaseListObservable<any[]>
 
-    constructor( private af : AngularFire ) { }
+    constructor( public af : AngularFire ) { }
+
+    iniciarSesion(user : string, pass : string){
+        return this.af.auth.login({
+            email: user,
+            password: pass
+            }, {
+            provider: AuthProviders.Password,
+            method: AuthMethods.Password
+        })
+    }
+
+    cerrarSesion(){
+        return this.af.auth.logout()
+    }
 
     cargaPreguntas(llave : string){
         var text = '/iQOtBOgCQTagAxU7UF836H8OR9t2/procesos/' + llave + '/preguntas'
@@ -48,6 +62,11 @@ export class InnovaService {
             descripcion : _desc
         }
 
+        return this.items.push( encuesta )
+    }
+
+    addEncuesta(encuesta : Caracteristica){
+        console.log(encuesta)
         return this.items.push( encuesta )
     }
 

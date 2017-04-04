@@ -48,6 +48,7 @@ export class GenerarFormComponent implements OnInit {
             console.log('estamos dentro con ', this.key)
         })
         this.askForm = this.initForm()
+        console.log('Responde: ',localStorage.getItem('user'))
     }
 
     initForm(){
@@ -95,7 +96,7 @@ export class GenerarFormComponent implements OnInit {
     }
 
     guardar(modelo : FormGroup){
-       console.log(modelo)
+       this._is.addEncuesta(modelo.value)
        this.askForm = this.initForm()
     }
 
@@ -130,19 +131,16 @@ export class GenerarFormComponent implements OnInit {
         return (result || this.askForm.invalid)
     }
 
-    remPregunta(index : number){
-       // this.coleccion.splice(index,1)
-    }
-
     editarPregunta(index : number){
         console.log(index)
     }
 
-    almacenar(){
-       /* if(this.coleccion.length > 0){
-            this._is.insertaPreguntas(this.coleccion)
-            this.coleccion = []
-        }*/
+    cuentaPreguntas() : boolean {
+        var res = false
+
+        if(this.askForm.value.preguntas.length > 1){ res = true }
+
+        return res
     }
 
 }

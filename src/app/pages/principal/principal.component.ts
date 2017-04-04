@@ -1,23 +1,20 @@
 import { Component, ViewEncapsulation, OnInit, HostListener } from '@angular/core';
-import { AppService } from './app.service';
+import { AppService } from '../../app.service';
 import { Router } from '@angular/router';
-import { MenuMock } from './shared/mockdata/menu';
-import { SearchMock } from './shared/mockdata/search';
+import { MenuMock } from '../../shared/mockdata/menu';
+import { SearchMock } from '../../shared/mockdata/search';
 import { MdDialog, MdSnackBar } from '@angular/material';
 import { TranslateService } from 'ng2-translate';
-import { InnovaService } from './services/innova.service'
+import { InnovaService } from '../../services/innova.service'
 
 @Component({
-  selector: 'lk-app',
-  encapsulation: ViewEncapsulation.None,
-  templateUrl: './app.component.html',
-  styleUrls: [
-    './app.component.scss'
-  ]
+  selector: 'app-principal',
+  templateUrl: './principal.component.html',
+  styleUrls: ['./principal.component.scss']
 })
 
-export class AppComponent implements OnInit {
-  
+export class PrincipalComponent implements OnInit {
+
     // Mock Menu
     mainMenu = MenuMock.root;
     // Mock search item
@@ -154,10 +151,4 @@ export class AppComponent implements OnInit {
         localStorage.removeItem('user')
       })
     }
-
-    existe() : boolean {
-      if(localStorage.getItem('user') != null){ return true}
-      return false
-    }
-
 }

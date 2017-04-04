@@ -1,0 +1,37 @@
+<section class="bs">
+    <table class="table table-striped table-hover table-card">
+        <thead>
+            <tr>
+                <th style="width:27%;">TÍTULO EVALUACIÓN</th>
+                <th style="width:35%;">DESCRIPCIÓN</th>
+                <th style="width:25%;">ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of _is.items | async">
+                <td>{{ item.titulo }}</td>
+                    <td>{{item.descripcion }}</td>
+                    <td>
+                        <div class="espIcons example-tooltip-host" mdTooltip="Editar encuesta"
+                            mdTooltipPosition="above" (click)="accion(item, 1)">
+                            <a md-icon-button>
+                                <md-icon>edit</md-icon>
+                            </a>
+                        </div>
+                        <div class="espIcons example-tooltip-host" mdTooltip="Vista previa encuesta"
+                            mdTooltipPosition="above"  (click)="accion(item, 2)">
+                            <a md-icon-button>
+                                <md-icon>remove_red_eye</md-icon>
+                            </a>
+                        </div>
+                        <div class="espIcons example-tooltip-host" mdTooltip="Eliminar encuesta"
+                            mdTooltipPosition="above"  (click)="accion(item, 3)">
+                            <a md-icon-button>
+                                <md-icon>delete</md-icon>
+                            </a>
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>

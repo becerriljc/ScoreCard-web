@@ -34,3 +34,21 @@
     margin: 15px;
     text-align: right;
 }
+
+.btnAccion {
+    padding: 5px;
+}
+
+
+.btnAccion :hover {
+    border: 0px solid #000000;
+    border-radius: 25px 25px 25px 25px;
+    -moz-border-radius: 25px 25px 25px 25px;
+    -webkit-border-radius: 25px 25px 25px 25px;
+    background-color: #FE9800;
+    color: white;
+}
+
+.cursorLink {
+    cursor : pointer;
+}

@@ -27,4 +27,14 @@ export class FuncionesService {
         }
         return resp
     }
+
+    public existe() : boolean {
+        
+        if(localStorage.getItem('user')){
+            return true
+        }
+        return false
+    }
+
+
 }

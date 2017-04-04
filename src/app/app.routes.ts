@@ -53,8 +53,7 @@ import { AppsMailComponent } from './pages/apps-mail/apps-mail.component';
 import { MapsVectorExampleComponent } from './pages/maps-vector/maps-vector.component';
 import { DashboardEdgeComponent } from './pages/dashboard-edge/dashboard-edge.component';
 import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
-
-import { ServPrueba } from './pages/app_serv_pruebas/serv.component'
+import { IniciarSesionComponent } from './pages/iniciar-sesion/iniciar-sesion.component'
 
 /**
  * Router Setting
@@ -297,5 +296,9 @@ export const ROUTES: Routes = [
   {
     path: 'apps-mail',
     component: AppsMailComponent
+  },
+  {
+    path: 'login',
+    component: IniciarSesionComponent
   }
-];
+]

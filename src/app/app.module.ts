@@ -80,7 +80,7 @@ import { TranslateStaticLoader, TranslateLoader, TranslateModule } from 'ng2-tra
 import { QuillEditorComponent } from './shared/editor/quill-editor.component';
 
 //firebase 
-import { AngularFireModule } from 'angularfire2'
+import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2'
 import { firebaseConfig } from '../environments/firebase.config'
 
 //servicios => todos los inyectables
@@ -91,7 +91,12 @@ import { FuncionesService } from './services/funciones.service'
 import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
 import { GeneraForm } from './pages/apps-forms/form.component'
 import { VistaPrevia } from './pages/visor-cuestionarios/visor.component';
-import { GenerarFormComponent } from './pages/generar-form/generar-form.component'
+import { GenerarFormComponent } from './pages/generar-form/generar-form.component';
+import { ListaFormComponent } from './pages/lista-form/lista-form.component';
+import { IniciarSesionComponent } from './pages/iniciar-sesion/iniciar-sesion.component';
+import { PrincipalComponent } from './pages/principal/principal.component';
+import { NotificacionesComponent } from './shared/dialog/notificaciones/notificaciones.component'
+
 /**
  * Root Module
  *
@@ -160,7 +165,11 @@ import { GenerarFormComponent } from './pages/generar-form/generar-form.componen
     AppsExplorerComponent,
     AppsMailComponent,
     QuillEditorComponent,
-    GenerarFormComponent
+    GenerarFormComponent,
+    ListaFormComponent,
+    IniciarSesionComponent,
+    PrincipalComponent,
+    NotificacionesComponent
   ],
   imports: [
     // Angular Imports

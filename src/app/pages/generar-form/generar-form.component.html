@@ -77,7 +77,11 @@
                         </md-select>
                     </div>
                     <div fxFlex fxLayoutAlign="center center">
-                        <div class="example-tooltip-host" mdTooltip="Añadir pregunta" mdTooltipPosition="above" (click)="accionesPreguntas(2, i)">
+                        <div class="example-tooltip-host" mdTooltip="Eliminar pregunta" 
+                            mdTooltipPosition="above" 
+                            (click)="accionesPreguntas(2, i)"
+                            *ngIf="cuentaPreguntas()"
+                            class="btnAccion cursorLink">
                             <md-icon>delete_forever</md-icon>
                         </div>
                     </div>
@@ -114,9 +118,11 @@
                                             </div>
                                         </div>
                                         <div fxFlex fxLayoutAlign="center center" *ngIf="askForm.value.preguntas[i].opciones.length > 1">
-                                            <button md-button (click)="accionesOpciones(item, 2, j)">
+                                            <div class="btnAccion cursorLink example-tooltip-host" mdTooltip="Eliminar pregunta"
+                                                mdTooltipPosition="above" 
+                                                (click)="accionesOpciones(item, 2, j)">
                                                 <md-icon>clear</md-icon>
-                                            </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -124,7 +130,7 @@
                                     <div fxLayout="row">
                                         <div fxFlex="5"></div>
                                         <div fxFlex="80" fxLayoutAlign="start center">
-                                            <div (click)="accionesOpciones(item, 1, null)">Añadir opción</div>
+                                            <div (click)="accionesOpciones(item, 1, null)" class="cursorLink">Añadir opción</div>
                                         </div>
                                     </div>
                                 </div>
@@ -203,8 +209,8 @@
     </div>
 </form>
 <div class="btnAgregarPregunta">
-    <div class="example-tooltip-host" mdTooltip="Añadir pregunta" mdTooltipPosition="before" (click)="accionesPreguntas(1, null)">
-        <button md-fab (click)="accionesPreguntas(1,null)">
+    <div class="example-tooltip-host" mdTooltip="Añadir pregunta" mdTooltipPosition="before">
+        <button md-fab (click)="accionesPreguntas(1, null)">
             <md-icon>add</md-icon>
         </button>
     </div>

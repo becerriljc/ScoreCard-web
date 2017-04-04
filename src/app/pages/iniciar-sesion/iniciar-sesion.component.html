@@ -1,0 +1,23 @@
+<div class="sign-container">
+  <div class="sign-background"></div>
+  <form [formGroup]="sesionForm" (ngSubmit)="logeo()" novalidate>
+    <md-card class="sign-card">
+      <md-card-title><img style="height: 64px;" src="assets/img/logo-full.svg"></md-card-title>
+      <md-card-subtitle>Inicia Sesión para continuar.</md-card-subtitle>
+      <br>
+      <md-card-content>
+        <md-input-container>
+          <input mdInput type="email" placeholder="Correo electrónico" formControlName="usuario">
+        </md-input-container>
+        <md-input-container>
+          <input mdInput type="password" placeholder="Contraseña" formControlName="clave_ingreso">
+        </md-input-container>
+      </md-card-content>
+      <md-card-actions>
+        <button md-raised-button color="primary" [disabled]="validarForm()">INGRESAR</button>
+      </md-card-actions>
+    </md-card>
+  </form>
+  <br>
+  <p>No puedes ingresar? <a>Recupera tus credenciales</a></p>
+</div>
