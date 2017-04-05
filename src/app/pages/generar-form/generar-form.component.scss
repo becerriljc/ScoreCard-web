@@ -1,3 +1,6 @@
+$primario : #FE9800;
+$vertical : 40px;
+
 .espTotal {
     width: 100%
 }
@@ -30,11 +33,6 @@
     box-shadow:         5px 5px 10px #aaaaaa;
 }
 
-.btnAgregarPregunta{
-    margin: 15px;
-    text-align: right;
-}
-
 .btnAccion {
     padding: 5px;
 }
@@ -45,10 +43,26 @@
     border-radius: 25px 25px 25px 25px;
     -moz-border-radius: 25px 25px 25px 25px;
     -webkit-border-radius: 25px 25px 25px 25px;
-    background-color: #FE9800;
+    background-color : $primario;
     color: white;
 }
 
 .cursorLink {
     cursor : pointer;
+}
+
+.btnCenter {
+    width: 100%;
+    height: $vertical;
+}
+
+.btnAdd {
+    color: $primario;
+    font-size: 13px;
+    line-height: $vertical;
+    text-align: center
+}
+
+.btnCenter :hover {
+    cursor: pointer;
 }

@@ -11,6 +11,8 @@ export class InnovaService {
 
     item : FirebaseListObservable<any[]>
 
+    editar : any
+
     constructor( public af : AngularFire ) { }
 
     iniciarSesion(user : string, pass : string){
@@ -28,13 +30,14 @@ export class InnovaService {
     }
 
     cargaPreguntas(llave : string){
-        var text = '/iQOtBOgCQTagAxU7UF836H8OR9t2/procesos/' + llave + '/preguntas'
+
+        var text = localStorage.getItem('user') + '/procesos/' + llave + '/preguntas'
         this.preguntas = this.af.database.list(text)
         return this.preguntas
     }
 
     cargaEvaluacion(llave : string){
-        var text = '/iQOtBOgCQTagAxU7UF836H8OR9t2/procesos/' + llave
+        var text = localStorage.getItem('user') + '/procesos/' + llave
         var data : any = null
         this.af.database.object(text).forEach(item => {
             data = item
@@ -43,7 +46,7 @@ export class InnovaService {
     }
 
     cargaResult(){
-        this.items = this.af.database.list('/iQOtBOgCQTagAxU7UF836H8OR9t2/procesos', {
+        this.items = this.af.database.list(localStorage.getItem('user') + '/procesos', {
             query : {
                 limitToLast: 20,
                 orderByKey: true
@@ -66,7 +69,6 @@ export class InnovaService {
     }
 
     addEncuesta(encuesta : Caracteristica){
-        console.log(encuesta)
         return this.items.push( encuesta )
     }
 
@@ -96,11 +98,10 @@ export class InnovaService {
 
     resultadoVector(llave : string){
         var data : any[] = []
-        var text = '/iQOtBOgCQTagAxU7UF836H8OR9t2/procesos/' + llave + '/preguntas'
+        var text = localStorage.getItem('user') + '/procesos/' + llave + '/preguntas'
         this.af.database.list(text).forEach(result => {
             data.push(result)
         })
-        console.log(data[0])
         return data[0]
     }
 }

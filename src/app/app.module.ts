@@ -86,6 +86,8 @@ import { firebaseConfig } from '../environments/firebase.config'
 //servicios => todos los inyectables
 import { InnovaService } from './services/innova.service'
 import { FuncionesService } from './services/funciones.service'
+import { VerificaAuth } from './app.guard'
+import { AuthServices } from './services/auth.services'
 
 // páginas sistema
 import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
@@ -95,7 +97,7 @@ import { GenerarFormComponent } from './pages/generar-form/generar-form.componen
 import { ListaFormComponent } from './pages/lista-form/lista-form.component';
 import { IniciarSesionComponent } from './pages/iniciar-sesion/iniciar-sesion.component';
 import { PrincipalComponent } from './pages/principal/principal.component';
-import { NotificacionesComponent } from './shared/dialog/notificaciones/notificaciones.component'
+import { NotificacionesComponent } from './shared/dialog/notificaciones/notificaciones.component';
 
 /**
  * Root Module
@@ -212,13 +214,16 @@ import { NotificacionesComponent } from './shared/dialog/notificaciones/notifica
     // Global service (Global state)
     AppService,
     InnovaService,
-    FuncionesService
+    FuncionesService,
+    AuthServices,
+    VerificaAuth
   ],
   entryComponents: [
     // Customize dialog must be import here.
     DialogExampleComponent,
     GeneraForm,
-    VistaPrevia
+    VistaPrevia,
+    NotificacionesComponent
   ],
   bootstrap: [AppComponent]
 })

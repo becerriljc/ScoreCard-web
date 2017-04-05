@@ -55,6 +55,10 @@ import { DashboardEdgeComponent } from './pages/dashboard-edge/dashboard-edge.co
 import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
 import { IniciarSesionComponent } from './pages/iniciar-sesion/iniciar-sesion.component'
 
+//servicio de autenticación
+
+import { VerificaAuth } from './app.guard'
+
 /**
  * Router Setting
  *
@@ -65,12 +69,14 @@ export const ROUTES: Routes = [
   {
     path: '',
     redirectTo: '/dashboard',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate : [VerificaAuth]
   },
   // Emergency loading, need to import component form file.
   {
     path: 'dashboard',
-    component: DashboardComponent
+    component: DashboardComponent,
+    canActivate : [VerificaAuth]
   },
   // Lazy loading, you need to create a module file.
   //
@@ -87,215 +93,268 @@ export const ROUTES: Routes = [
   // },
   {
     path: 'dashboard-edge',
-    component: DashboardEdgeComponent
+    component: DashboardEdgeComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'aprendizaje',
-    component: Aprendizaje
+    component: Aprendizaje,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-buttons',
-    component: ComponentButtonsComponent
+    component: ComponentButtonsComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-progress',
-    component: ComponentProgressComponent
+    component: ComponentProgressComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-card',
-    component: ComponentCardComponent
+    component: ComponentCardComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-bootstrap',
-    component: ComponentBootstrapComponent
+    component: ComponentBootstrapComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-dialog',
-    component: ComponentDialogComponent
+    component: ComponentDialogComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-notifications',
-    component: ComponentNotificationsComponent
+    component: ComponentNotificationsComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'radio-button',
-    component: ComponentRadioButtonComponent
+    component: ComponentRadioButtonComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-checkbox',
-    component: ComponentCheckboxComponent
+    component: ComponentCheckboxComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-chips',
-    component: ComponentChipsComponent
+    component: ComponentChipsComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-date-picker',
-    component: ComponentDatePickerComponent
+    component: ComponentDatePickerComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-list',
-    component: ComponentListComponent
+    component: ComponentListComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-media-player',
-    component: ComponentMediaPlayerComponent
+    component: ComponentMediaPlayerComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-menu',
-    component: ComponentMenuComponent
+    component: ComponentMenuComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-grid-list',
-    component: ComponentGridListComponent
+    component: ComponentGridListComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-select',
-    component: ComponentSelectComponent
+    component: ComponentSelectComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-slide-toggle',
-    component: ComponentSlideToggleComponent
+    component: ComponentSlideToggleComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-slider',
-    component: ComponentSliderComponent
+    component: ComponentSliderComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-tabs',
-    component: ComponentTabsComponent
+    component: ComponentTabsComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-text-editor',
-    component: ComponentTextEditorComponent
+    component: ComponentTextEditorComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-toolbar',
-    component: ComponentToolbarComponent
+    component: ComponentToolbarComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-tooltip',
-    component: ComponentTooltipComponent
+    component: ComponentTooltipComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'component-radio-button',
-    component: ComponentRadioButtonComponent
+    component: ComponentRadioButtonComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'icon-material',
-    component: IconMaterialComponent
+    component: IconMaterialComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'icon-weather',
-    component: IconWeatherComponent
+    component: IconWeatherComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'icon-fontawesome',
-    component: IconFontawesomeComponent
+    component: IconFontawesomeComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'maps-google',
-    component: MapsGoogleComponent
+    component: MapsGoogleComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'maps-vector',
-    component: MapsVectorExampleComponent
+    component: MapsVectorExampleComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'forms-validation',
-    component: FormsValidationComponent
+    component: FormsValidationComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'forms-wizard',
-    component: FormsWizardComponent
+    component: FormsWizardComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'forms-autocomplete',
-    component: FormsAutocompleteComponent
+    component: FormsAutocompleteComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'forms-upload',
-    component: FormsUploadComponent
+    component: FormsUploadComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'forms-tree',
-    component: FormsTreeComponent
+    component: FormsTreeComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'tables-basic',
-    component: TablesBasicComponent
+    component: TablesBasicComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'tables-dynamic',
-    component: TablesDynamicComponent
+    component: TablesDynamicComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'charts-chartjs',
-    component: ChartsChartjsComponent
+    component: ChartsChartjsComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'charts-peity',
-    component: ChartsPeityComponent
+    component: ChartsPeityComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'widgets',
-    component: WidgetsComponent
+    component: WidgetsComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'layout-flex',
-    component: LayoutFlexComponent
+    component: LayoutFlexComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'layout-tabs',
-    component: LayoutTabsComponent
+    component: LayoutTabsComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'layout-edges',
-    component: LayoutEdgesComponent
+    component: LayoutEdgesComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'layout-cards',
-    component: LayoutCardsComponent
+    component: LayoutCardsComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'layout-fullscreen',
-    component: LayoutFullscreenComponent
+    component: LayoutFullscreenComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'pages-error',
-    component: PagesErrorComponent
+    component: PagesErrorComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'pages-lockscreen',
-    component: PagesLockscreenComponent
+    component: PagesLockscreenComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'pages-invoice',
-    component: PagesInvoiceComponent
+    component: PagesInvoiceComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'pages-notfound',
-    component: PagesNotfoundComponent
+    component: PagesNotfoundComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'pages-signin',
-    component: PagesSigninComponent
+    component: PagesSigninComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'pages-signup',
-    component: PagesSignupComponent
+    component: PagesSignupComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'apps-calendar',
-    component: AppsCalendarComponent
+    component: AppsCalendarComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'apps-explorer',
-    component: AppsExplorerComponent
+    component: AppsExplorerComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'apps-mail',
-    component: AppsMailComponent
+    component: AppsMailComponent,
+    canActivate : [VerificaAuth]
   },
   {
     path: 'login',

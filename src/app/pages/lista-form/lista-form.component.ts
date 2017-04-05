@@ -4,6 +4,7 @@ import { MdDialog } from '@angular/material'
 import { AprendizajeForm } from '../aprendizaje-formulario/aprendizaje.form'
 import { GeneraForm } from '../apps-forms/form.component'
 import { VistaPrevia } from '../visor-cuestionarios/visor.component'
+import { NotificacionesComponent } from '../../shared/dialog/notificaciones/notificaciones.component'
 
 import {GenerarFormComponent } from '../generar-form/generar-form.component'
 
@@ -20,18 +21,6 @@ export class ListaFormComponent implements OnInit {
     selectedOption: string
     htmlForm : string = ''
 
-    accion(obj : any, act : number){
-        var llave : string = obj.$key
-        switch(act){
-            case 1 :  this.creaFormulario(llave)
-            break
-            case 2 : this.vistaPrevia(llave)
-            break
-            case 3: this.eliminaItem(llave)
-            break
-        }
-    }    
-    
     constructor(
         private appService: AppService,
         private dialog: MdDialog,
@@ -46,11 +35,23 @@ export class ListaFormComponent implements OnInit {
 
     ngOnInit(){ }
 
+    accion(obj : any, act : number){
+        var llave : string = obj.$key
+        switch(act){
+            case 1 :  this.creaFormulario(llave)
+            break
+            case 2 : this.vistaPrevia(llave)
+            break
+            case 3: this.eliminaItem(llave)
+            break
+        }
+    }    
+
     titulo : string = ''
     descripcion : string = ''
 
     eliminaItem(llave : string){
-        this._is.eliminaEncuesta(llave)
+        this.abrirDialogo(3, llave)
     }
 
     agregarForm(){
@@ -79,7 +80,6 @@ export class ListaFormComponent implements OnInit {
     }
 
     vistaPrevia(llave : string){
-        console.log('abrimos vista previa')
         let dialogRef = this.dialog.open(VistaPrevia, {
             width: '850px',
             height: '550px'
@@ -88,5 +88,18 @@ export class ListaFormComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             console.log(result)
         }) 
+    }
+
+    abrirDialogo(opc : number, key : string){
+        let dialogRef = this.dialog.open(NotificacionesComponent, {
+            width: '350px',
+            height: '200px'
+        })
+        dialogRef.componentInstance.opcion = opc
+        dialogRef.afterClosed().subscribe(result => {
+            if(result == 'true'){
+                 this._is.eliminaEncuesta(key)
+            }
+        })
     }
 }

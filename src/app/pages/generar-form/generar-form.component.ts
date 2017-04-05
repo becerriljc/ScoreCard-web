@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms'
 import { MediaChange } from '@angular/flex-layout'
+import { MdDialog } from '@angular/material'
+
+import { NotificacionesComponent } from '../../shared/dialog/notificaciones/notificaciones.component'
 
 //servicios 
 import  { InnovaService } from '../../services/innova.service'
@@ -41,7 +44,8 @@ export class GenerarFormComponent implements OnInit {
     constructor(
         private _fb : FormBuilder,
         public _is : InnovaService,
-        public _fs : FuncionesService){}
+        public _fs : FuncionesService,
+        private dialog : MdDialog){}
 
     ngOnInit() {
       this._is.cargaPreguntas(this.key).subscribe(() => {
@@ -95,9 +99,13 @@ export class GenerarFormComponent implements OnInit {
         }
     }
 
-    guardar(modelo : FormGroup){
-       this._is.addEncuesta(modelo.value)
-       this.askForm = this.initForm()
+    guardar(){
+       this._is.addEncuesta(this.askForm.value).then((res) =>{
+           this.abrirDialogo(1)
+           this.askForm = this.initForm()
+       }).catch((err) => {
+            this.abrirDialogo(2)
+       })
     }
 
     validaForm() : boolean {
@@ -143,4 +151,11 @@ export class GenerarFormComponent implements OnInit {
         return res
     }
 
+    abrirDialogo(opc : number){
+        let dialogRef = this.dialog.open(NotificacionesComponent, {
+            width: '350px',
+            height: '200px'
+        })
+        dialogRef.componentInstance.opcion = opc
+    }
 }

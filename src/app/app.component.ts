@@ -5,7 +5,7 @@ import { MenuMock } from './shared/mockdata/menu';
 import { SearchMock } from './shared/mockdata/search';
 import { MdDialog, MdSnackBar } from '@angular/material';
 import { TranslateService } from 'ng2-translate';
-import { InnovaService } from './services/innova.service'
+import { AuthServices } from './services/auth.services'
 
 @Component({
   selector: 'lk-app',
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
       private translate: TranslateService,
       private router: Router,
       private snackBar: MdSnackBar,
-      public is : InnovaService) {}
+      public as : AuthServices) {}
 
     ngOnInit() {
       this.onResize();
@@ -149,9 +149,8 @@ export class AppComponent implements OnInit {
     }
 
     cierra(){
-      this.is.cerrarSesion().then((data) => {
-        console.log(data)
-        localStorage.removeItem('user')
+      this.as.logout().then( () => {
+          this.router.navigate(['login'])
       })
     }
 

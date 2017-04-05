@@ -19,109 +19,27 @@ import { Preguntas } from '../../interface/item.interface'
 })
 
 export class GeneraForm implements OnInit {
-
-    private validaNum: string = '^[1-5]{1}$' 
-    
-    public  askForm : FormGroup
-
-    private coleccion : Preguntas[] = []
-
-    private single : Preguntas = {
-        pregunta : '',
-        tipo : 0,
-        opciones : [{
-            valor : ''
-        }]
-    }
-
+    initVal : any
     key : string
-
+    forma : FormGroup 
+    private validaText : string = '[a-zA-Z0-9_].+$'
     constructor(
         private _fb : FormBuilder,
         public _is : InnovaService,
         public _fs : FuncionesService,
-        private dialogRef: MdDialogRef<GeneraForm>){}
+        private dialogRef: MdDialogRef<GeneraForm>){
+            this.initVal = this._is.cargaEvaluacion(this.key)
+        }
     
     ngOnInit(){
-        this._is.cargaPreguntas(this.key).subscribe(() => {
-            console.log('estamos dentro con ', this.key)
-        })
-        this.askForm = this.initForm()
+        this.initVal = this._is.cargaEvaluacion(this.key)
+        console.log(this.initVal.titulo)
+        this.forma = this.formInit()
     }
 
-    initForm() {
+    formInit(){
         return this._fb.group({
-            pregunta : ['', [Validators.required, Validators.minLength(4)]],
-            tipo : [0, [Validators.required, Validators.pattern(this.validaNum)]],
-            opciones : this._fb.array([
-                this.getValor()
-            ])
+            titulo : ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.validaText)]],
         })
     }
-
-    getValor(){
-        return this._fb.group({
-            valor : ['', Validators.minLength(2)]
-        })
-    }
-
-    agregarValor(){
-        const control = <FormArray>this.askForm.controls['opciones']
-        control.push(this.getValor())
-    }
-
-    removerValor(i : number){
-        const control = <FormArray>this.askForm.controls['opciones']
-        control.removeAt(i)
-    }
-
-    guardar(modelo : FormGroup){
-        this.coleccion.push(modelo.value)
-        this.askForm = this.initForm()
-    }
-
-    validaForm() : boolean {
-        if( (this.askForm.value.tipo != 1) && (this.askForm.value.tipo != 2) ){
-            return this.validaCamposVacios()
-        }
-        return this.askForm.invalid
-    }
-
-    validaCamposVacios() : boolean {
-        /**
-         * Si la opción es distinta a 1 ó 2 entonces verifico que los campos no esten vacíos
-         */
-        var i = 0
-        var result = false;
-
-        while( (i < this.askForm.value.opciones.length) && !result ){
-            if( this.askForm.value.opciones[i].valor == ""){
-                result = true
-            }else{
-                i++
-            }
-        }
-        return result
-    }
-
-    remPregunta(index : number){
-        this.coleccion.splice(index,1)
-    }
-
-    editarPregunta(index : number){
-        console.log(index)
-    }
-
-    almacenar(){
-        if(this.coleccion.length > 0){
-            this._is.insertaPreguntas(this.coleccion)
-            this.coleccion = []
-            this.dialogRef.close('guardar')
-        }
-    }
-
-    cerrarDialogo(){
-        this.dialogRef.close('cerrar')
-    }
-
 }
