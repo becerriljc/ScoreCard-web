@@ -1,20 +1,181 @@
 <h1 md-dialog-title>Formulario</h1>
-<div md-dialog-content>
-    <form [formGroup]="forma"  (ngSubmit)="update()" novalidate>
+<form [formGroup]="forma"  (ngSubmit)="update()" novalidate>
+    <div md-dialog-content>
         <div fxLayout="row">
             <div fxFlex="50">
                 <md-input-container>
                     <input  mdInput 
                         placeholder="Título de la encuesta"
                         formControlName="titulo"
-                        class="inputText"
-                        [value]="initVal.titulo">
+                        class="inputText">
                 </md-input-container>
             </div>
         </div>
-    </form>
-</div>
+        <div fxLayout="row">
+            <div fxFlex>
+                <md-input-container>
+                    <input  mdInput 
+                        placeholder="Descripción de la encuesta"
+                        formControlName="descripcion"
+                        class="inputText">
+                </md-input-container>
+            </div>
+        </div>
+        <div formArrayName="preguntas">
+            <div *ngFor="let item of forma.controls.preguntas.controls; let i=index">
+                <div [formGroupName]="i" class="estiloPregunta">
+                    <div fxLayout="row">
+                        <div fxFlex="60" fxLayoutAlign="center center">
+                            <md-input-container>
+                                <input  mdInput 
+                                    placeholder="Pregunta sin título"
+                                    formControlName="pregunta"
+                                    class="inputText">
+                            </md-input-container>
+                        </div>
+                        <div fxFlex="30" fxLayoutAlign="center center">
+                            <md-select 
+                                placeholder="Tipo Respuesta" 
+                                formControlName="tipo">
+                                <md-option *ngFor="let respuesta of _fs.respuestas" [value]="respuesta.value">
+                                    {{ respuesta.item }}
+                                </md-option>
+                            </md-select>
+                        </div>
+                        <div fxFlex fxLayoutAlign="center center">
+                            <div class="example-tooltip-host" mdTooltip="Eliminar pregunta" 
+                                mdTooltipPosition="above" 
+                                (click)="accionesPreguntas(2, i)"
+                                *ngIf="sForm.cuentaPreguntas(forma)"
+                                class="btnAccion cursorLink">
+                                <md-icon>delete_forever</md-icon>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" class="text-error">
+                        <!-- Desplega los errores de pregunta y tipo de respuesta -->
+                        <div fxFlex="60"></div>
+                        <div fxFlex="30"></div>
+                    </div>
+                    <div fxLayout="column" [ngSwitch]="forma.value.preguntas[i].tipo">
+                        <div fxFlex *ngSwitchCase="1">
+                            <md-input-container>
+                                <input mdInput placeholder="Pregunta realizada" disabled value="Texto de Respuesta Corta">
+                            </md-input-container>
+                        </div>
+                        <div fxFlex *ngSwitchCase="2">
+                            <md-input-container>
+                                <input mdInput placeholder="Pregunta realizada" disabled value="Texto de Respuesta Larga">
+                            </md-input-container>
+                        </div>
+                        <div fxFlex *ngSwitchCase="3">
+                            <div formArrayName="opciones">
+                                <div fxLayout="column">
+                                    <div fxFlex *ngFor="let preg of forma.controls.preguntas.controls[i].controls.opciones.controls; let j=index">
+                                        <div fxLayout="row">
+                                            <div fxFlex="5" fxLayoutAlign="center center">
+                                                <md-radio-button value="1" disabled></md-radio-button>
+                                            </div>
+                                            <div fxFlex="80" fxLayoutAlign="center center">
+                                                <div [formGroupName]="j" class="espTotal">
+                                                    <md-input-container>
+                                                        <input mdInput placeholder="Respuesta" formControlName="valor"> 
+                                                    </md-input-container>
+                                                </div>
+                                            </div>
+                                            <div fxFlex fxLayoutAlign="center center" *ngIf="forma.value.preguntas[i].opciones.length > 1">
+                                                <div class="btnAccion cursorLink example-tooltip-host" mdTooltip="Eliminar pregunta"
+                                                    mdTooltipPosition="above" 
+                                                    (click)="accionesOpciones(item, 2, j)">
+                                                    <md-icon>clear</md-icon>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxFlex>
+                                        <div fxLayout="row">
+                                            <div fxFlex="5"></div>
+                                            <div fxFlex="80" fxLayoutAlign="start center">
+                                                <div (click)="accionesOpciones(item, 1, null)" class="cursorLink">Añadir opción</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxFlex *ngSwitchCase="4">
+                            <div formArrayName="opciones">
+                                <div fxLayout="column">
+                                    <div fxFlex *ngFor="let preg of forma.controls.preguntas.controls[i].controls.opciones.controls; let j=index">
+                                        <div fxLayout="row">
+                                            <div fxFlex="5" fxLayoutAlign="center center">
+                                                <md-checkbox disabled></md-checkbox>
+                                            </div>
+                                            <div fxFlex="80" fxLayoutAlign="center center">
+                                                <div [formGroupName]="j" class="espTotal">
+                                                    <md-input-container>
+                                                        <input mdInput placeholder="Respuesta" formControlName="valor"> 
+                                                    </md-input-container>
+                                                </div>
+                                            </div>
+                                            <div fxFlex fxLayoutAlign="center center" *ngIf="forma.value.preguntas[i].opciones.length > 1">
+                                                <button md-button (click)="accionesOpciones(item, 2, j)">
+                                                    <md-icon>clear</md-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxFlex>
+                                        <div fxLayout="row">
+                                            <div fxFlex="5"></div>
+                                            <div fxFlex="80" fxLayoutAlign="start center">
+                                                <div (click)="accionesOpciones(item, 1, null)">Añadir opción</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxFlex *ngSwitchCase="5">
+                            <div formArrayName="opciones">
+                                <div fxLayout="column">
+                                    <div fxFlex *ngFor="let preg of forma.controls.preguntas.controls[i].controls.opciones.controls; let j=index">
+                                        <div fxLayout="row">
+                                            <div fxFlex="5" fxLayoutAlign="center center">
+                                                <span class="desp">Opc. {{ j + 1}}</span>
+                                            </div>
+                                            <div fxFlex="80" fxLayoutAlign="center center">
+                                                <div [formGroupName]="j" class="espTotal">
+                                                    <md-input-container>
+                                                        <input mdInput placeholder="Respuesta" formControlName="valor"> 
+                                                    </md-input-container>
+                                                </div>
+                                            </div>
+                                            <div fxFlex fxLayoutAlign="center center" *ngIf="forma.value.preguntas[i].opciones.length > 1">
+                                                <button md-button (click)="accionesOpciones(item, 2, j)">
+                                                    <md-icon>clear</md-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxFlex>
+                                        <div fxLayout="row">
+                                            <div fxFlex="5"></div>
+                                            <div fxFlex="80" fxLayoutAlign="start center">
+                                                <div (click)="accionesOpciones(item, 1, null)">Añadir opción</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</form>
 <div md-dialog-actions>
-    <button md-button (click)="almacenar()">Guardar</button>
-    <button md-button (click)="cerrarDialogo()">Cerrar</button>
+    <button md-button (click)="cerrarDialogo()">Cancelar</button>
 </div>

@@ -8,6 +8,7 @@ import { NotificacionesComponent } from '../../shared/dialog/notificaciones/noti
 //servicios 
 import  { InnovaService } from '../../services/innova.service'
 import { FuncionesService } from '../../services/funciones.service'
+import { FormulariosService } from '../../services/formularios.service'
 
 //Interfaces preguntas
 import { Caracteristica, Preguntas, Conjunto } from '../../interface/item.interface'
@@ -18,10 +19,6 @@ import { Caracteristica, Preguntas, Conjunto } from '../../interface/item.interf
   styleUrls : ['./generar-form.component.scss']
 })
 export class GenerarFormComponent implements OnInit {
-    
-    private validaNum: string = '[1-5]{1}$'
-
-    private validaText : string = '[a-zA-Z0-9_].+$'
     
     public  askForm : FormGroup
 
@@ -45,46 +42,20 @@ export class GenerarFormComponent implements OnInit {
         private _fb : FormBuilder,
         public _is : InnovaService,
         public _fs : FuncionesService,
-        private dialog : MdDialog){}
+        private dialog : MdDialog,
+        private sform : FormulariosService){}
 
     ngOnInit() {
       this._is.cargaPreguntas(this.key).subscribe(() => {
             console.log('estamos dentro con ', this.key)
         })
-        this.askForm = this.initForm()
-        console.log('Responde: ',localStorage.getItem('user'))
-    }
-
-    initForm(){
-        return this._fb.group({
-            titulo : ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.validaText)]],
-            descripcion : ['', Validators.minLength(4)],
-            preguntas : this._fb.array([
-                this.getPreguntas()
-            ])
-        })
-    }
-
-    getPreguntas(){
-        return this._fb.group({
-            pregunta : ['', [Validators.required, Validators.minLength(4)]],
-            tipo : [0, [Validators.required, Validators.pattern(this.validaNum)]],
-            opciones : this._fb.array([
-                this.getValor()
-            ])
-        })
-    }
-
-    getValor(){
-        return this._fb.group({
-            valor : ['', [Validators.minLength(2)]]
-        })
+        this.askForm = this.sform.initFormEncuestas()
     }
 
     accionesOpciones(opc: FormGroup, act : number, index : number){
         const control = <FormArray>opc.controls['opciones']
         if(act == 1){
-            control.push(this.getValor())
+            control.push(this.sform.getValor())
         }else{
             control.removeAt(index)
         }
@@ -93,7 +64,7 @@ export class GenerarFormComponent implements OnInit {
     accionesPreguntas(act : number, index : number){
         const control = <FormArray> this.askForm.controls['preguntas']
         if(act == 1){
-            control.push(this.getPreguntas())
+            control.push(this.sform.getPreguntas())
         }else{
             control.removeAt(index)
         }
@@ -102,7 +73,7 @@ export class GenerarFormComponent implements OnInit {
     guardar(){
        this._is.addEncuesta(this.askForm.value).then((res) =>{
            this.abrirDialogo(1)
-           this.askForm = this.initForm()
+           this.askForm = this.sform.initFormEncuestas()
        }).catch((err) => {
             this.abrirDialogo(2)
        })

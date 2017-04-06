@@ -52,5 +52,4 @@ export class IniciarSesionComponent implements OnInit, OnDestroy {
     validarForm() : boolean{
       return this.sesionForm.invalid
     }
-
 }

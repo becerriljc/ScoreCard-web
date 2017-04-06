@@ -88,6 +88,7 @@ import { InnovaService } from './services/innova.service'
 import { FuncionesService } from './services/funciones.service'
 import { VerificaAuth } from './app.guard'
 import { AuthServices } from './services/auth.services'
+import { FormulariosService } from './services/formularios.service'
 
 // páginas sistema
 import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
@@ -216,7 +217,8 @@ import { NotificacionesComponent } from './shared/dialog/notificaciones/notifica
     InnovaService,
     FuncionesService,
     AuthServices,
-    VerificaAuth
+    VerificaAuth,
+    FormulariosService
   ],
   entryComponents: [
     // Customize dialog must be import here.
