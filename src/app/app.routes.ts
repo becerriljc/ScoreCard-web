@@ -54,6 +54,7 @@ import { MapsVectorExampleComponent } from './pages/maps-vector/maps-vector.comp
 import { DashboardEdgeComponent } from './pages/dashboard-edge/dashboard-edge.component';
 import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
 import { IniciarSesionComponent } from './pages/iniciar-sesion/iniciar-sesion.component'
+import { AplicarEncuestaComponent } from './pages/aplicar-encuesta/aplicar-encuesta.component'
 
 //servicio de autenticación
 
@@ -359,5 +360,9 @@ export const ROUTES: Routes = [
   {
     path: 'login',
     component: IniciarSesionComponent
+  },
+  {
+    path: 'aplicarEncuesta/:idEncuesta',
+    component: AplicarEncuestaComponent
   }
 ]

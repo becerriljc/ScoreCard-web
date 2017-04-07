@@ -7,6 +7,7 @@ import { MediaChange } from '@angular/flex-layout'
 import  { InnovaService } from '../../services/innova.service'
 import { FuncionesService } from '../../services/funciones.service'
 import { FormulariosService } from '../../services/formularios.service'
+import { GeneralService } from '../../services/gral.services'
 
 //Interfaces preguntas
 import { Preguntas } from '../../interface/item.interface'
@@ -29,7 +30,8 @@ export class GeneraForm implements OnInit {
         public _is : InnovaService,
         public _fs : FuncionesService,
         private dialogRef: MdDialogRef<GeneraForm>,
-        private sForm : FormulariosService){
+        private sForm : FormulariosService,
+        private gral : GeneralService){
         }
     
     ngOnInit(){
@@ -42,26 +44,26 @@ export class GeneraForm implements OnInit {
         this.forma.setValue(this.initVal)
     }
 
-    update(){
-        this.dialogRef.close('true')
-    }
-
-    algo(){
-        console.log('es algo haber que pasa')
-    }
-
     cerrarDialogo(){
         this.dialogRef.close('false')
     }
 
-    cargaValor(ini : number, ref : number ): number{
-        if(ini === 0){ return ref }
-        return ini
+    actualiza(){
+        this.gral.update(this.forma.value, this.key).then(_ => {
+            this.dialogRef.close('actualización correcta')
+        }).catch((err) => {
+            console.log('algo paso por error')
+            this.dialogRef.close('false')
+        })
     }
 
     verificar(cad : string, valor : number) : string {
         console.log(valor)
         return cad
+    }
+
+    validaForm() : boolean {
+        return false
     }
 
 }

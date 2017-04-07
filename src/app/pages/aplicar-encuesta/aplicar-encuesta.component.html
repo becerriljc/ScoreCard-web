@@ -1,0 +1,62 @@
+<div class="page-content">
+    <md-card class="page-card">
+        <button md-icon-button  (click)="ir_a()">
+            <md-icon>keyboard_backspace</md-icon>
+        </button>
+        <span>Regresar</span>
+        <h3>{{ primitiva.titulo }}</h3>
+        <div fxLayout="column">
+            <div fxFlex>
+                <p class="estiloTextoPregunta">{{ primitiva.descripcion }}</p>
+            </div>
+            <div fxFlex *ngIf="primitivas.length > 0">
+                <div fxLayout="column" *ngFor="let w of primitivas">
+                    <div fxFlex>
+                        <p  class="estiloTextoPregunta">{{ w.pregunta }}</p>
+                    </div>
+                    <div fxFlex>
+                        <div fxLayout="column" [ngSwitch]="w.tipo">
+                            <div fxFlex *ngSwitchCase="1">
+                                <md-input-container class="estiloTextOpciones">
+                                    <input mdInput placeholder="Respuesta...">
+                                </md-input-container>
+                            </div>
+                            <div fxFlex *ngSwitchCase="2">
+                                <textarea class="estiloTextOpciones" rows="6" placeholder="Esto es un texto en un parrafo" class="maxWidth"></textarea>
+                            </div>
+                            <div fxFlex *ngSwitchCase="3">
+                                <div fxLayout="row" *ngFor="let opc of w.opciones">
+                                    <div fxFlex="5">
+                                        <md-radio-button value="1"></md-radio-button>
+                                    </div>
+                                    <div fxFlex>
+                                        <span class="estiloTextOpciones">{{ opc.valor }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxFlex *ngSwitchCase="4">
+                                <div fxLayout="row" *ngFor="let opc of w.opciones">
+                                    <div fxFlex="5">
+                                        <md-checkbox></md-checkbox>
+                                    </div>
+                                    <div fxFlex>
+                                        <span class="estiloTextOpciones">{{ opc.valor }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxFlex *ngSwitchCase="5">
+                                <md-select placeholder="Seleccione una respuesta" class="estiloTextOpciones">
+                                    <md-option *ngFor="let opc of w.opciones" [value]="opc.valor">
+                                        {{ opc.valor }}
+                                    </md-option>
+                                </md-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="primitivas.length == 0">
+                <p>SIN PREGUNTAS PARA MOSTRAR</p>
+            </div>
+        </div>
+  </md-card>

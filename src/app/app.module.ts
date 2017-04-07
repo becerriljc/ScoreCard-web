@@ -89,6 +89,7 @@ import { FuncionesService } from './services/funciones.service'
 import { VerificaAuth } from './app.guard'
 import { AuthServices } from './services/auth.services'
 import { FormulariosService } from './services/formularios.service'
+import { GeneralService } from './services/gral.services'
 
 // páginas sistema
 import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
@@ -99,6 +100,7 @@ import { ListaFormComponent } from './pages/lista-form/lista-form.component';
 import { IniciarSesionComponent } from './pages/iniciar-sesion/iniciar-sesion.component';
 import { PrincipalComponent } from './pages/principal/principal.component';
 import { NotificacionesComponent } from './shared/dialog/notificaciones/notificaciones.component';
+import { AplicarEncuestaComponent } from './pages/aplicar-encuesta/aplicar-encuesta.component';
 
 /**
  * Root Module
@@ -172,7 +174,8 @@ import { NotificacionesComponent } from './shared/dialog/notificaciones/notifica
     ListaFormComponent,
     IniciarSesionComponent,
     PrincipalComponent,
-    NotificacionesComponent
+    NotificacionesComponent,
+    AplicarEncuestaComponent
   ],
   imports: [
     // Angular Imports
@@ -218,7 +221,8 @@ import { NotificacionesComponent } from './shared/dialog/notificaciones/notifica
     FuncionesService,
     AuthServices,
     VerificaAuth,
-    FormulariosService
+    FormulariosService,
+    GeneralService
   ],
   entryComponents: [
     // Customize dialog must be import here.

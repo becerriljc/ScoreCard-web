@@ -1,3 +1,7 @@
+$primario : #FE9800;
+$vertical : 40px;
+$colorTexto : #606060;
+
 @import "app.theme";
 //----------------------------------------------------------------------------------------------------------------------
 // Custom style sheet
@@ -32,4 +36,102 @@ body.light {
 body.dark {
   $theme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
   @include custom-theme($theme);
+}
+
+.espTotal {
+    width: 100%
+}
+
+.text-error {
+    color: #F44336;
+    font-size: 12px;
+}
+
+.desp {
+    color: #808080;
+    font-size: 11px;
+}
+
+.enLinea {
+    display: inline-block
+}
+
+.inputText {
+    font-size: 13px;
+    color : #303030;
+}
+
+.estiloPregunta {
+    margin-top: 15px;
+    padding: 10px;
+    border-left: 4px solid #F44336;
+    -moz-box-shadow:    5px 5px 10px #aaaaaa;
+    -webkit-box-shadow: 5px 5px 10px #aaaaaa;
+    box-shadow:         5px 5px 10px #aaaaaa;
+}
+
+.btnAccion {
+    padding: 5px;
+}
+
+
+.btnAccion :hover {
+    border: 0px solid #000000;
+    border-radius: 25px 25px 25px 25px;
+    -moz-border-radius: 25px 25px 25px 25px;
+    -webkit-border-radius: 25px 25px 25px 25px;
+    background-color : $primario;
+    color: white;
+}
+
+.cursorLink {
+    cursor : pointer;
+}
+
+.btnCenter {
+    width: 100%;
+    height: $vertical;
+}
+
+.btnAdd {
+    color: $primario;
+    font-size: 13px;
+    line-height: $vertical;
+    text-align: center
+}
+
+.btnCenter :hover {
+    cursor: pointer;
+}
+
+.direccionbtn {
+    float: right;
+}
+
+.estiloTxt {
+    font-size: 12px;
+    color: $colorTexto;
+}
+
+form {
+    font-size: 14px;
+    color: $colorTexto;
+    text-align: justify;
+}
+
+h3 {
+    color: $primario;
+}
+
+.estiloTextoPregunta{
+    color: $colorTexto;
+    font-size: 14px;
+    text-align: justify;
+    font-weight: bold
+}
+
+.estiloTextOpciones {
+    font-size: 15px;
+    font-weight: lighter;
+    text-align: justify;
 }

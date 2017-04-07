@@ -1,24 +1,25 @@
-<h1 md-dialog-title>Vista Previa</h1>
+<div md-dialog-title>
+    <h3>{{ primitiva.titulo }}</h3>
+</div>
 <div md-dialog-content>
     <div fxLayout="column">
         <div fxFlex>
-            <h3>{{ primitiva.titulo }}</h3>
-            <p>{{ primitiva.descripcion }}</p>
+            <p class="estiloTextoPregunta">{{ primitiva.descripcion }}</p>
         </div>
         <div fxFlex *ngIf="primitivas.length > 0">
             <div fxLayout="column" *ngFor="let w of primitivas"> <!--  -->
                 <div fxFlex>
-                    <p>{{ w.pregunta }}</p>
+                    <p  class="estiloTextoPregunta">{{ w.pregunta }}</p>
                 </div>
                 <div fxFlex>
                     <div fxLayout="column" [ngSwitch]="w.tipo">
                         <div fxFlex *ngSwitchCase="1">
-                             <md-input-container>
+                             <md-input-container class="estiloTextOpciones">
                                 <input mdInput placeholder="" disabled value="Texto de Respuesta Corta">
                             </md-input-container>
                         </div>
                         <div fxFlex *ngSwitchCase="2">
-                            <textarea rows="6" placeholder="Esto es un texto en un parrafo" disabled class="maxWidth"></textarea>
+                            <textarea class="estiloTextOpciones" rows="6" placeholder="Esto es un texto en un parrafo" disabled class="maxWidth"></textarea>
                         </div>
                         <div fxFlex *ngSwitchCase="3">
                             <div fxLayout="row" *ngFor="let opc of w.opciones">
@@ -26,7 +27,7 @@
                                     <md-radio-button value="1" disabled></md-radio-button>
                                 </div>
                                 <div fxFlex>
-                                    <span>{{ opc.valor }}</span>
+                                    <span class="estiloTextOpciones">{{ opc.valor }}</span>
                                 </div>
                             </div>
                         </div>
@@ -36,12 +37,12 @@
                                     <md-checkbox  disabled></md-checkbox>
                                 </div>
                                 <div fxFlex>
-                                    <span>{{ opc.valor }}</span>
+                                    <span class="estiloTextOpciones">{{ opc.valor }}</span>
                                 </div>
                             </div>
                         </div>
                         <div fxFlex *ngSwitchCase="5">
-                            <md-select placeholder="Seleccione una respuesta">
+                            <md-select placeholder="Seleccione una respuesta" class="estiloTextOpciones">
                                 <md-option *ngFor="let opc of w.opciones" [value]="opc.valor">
                                     {{ opc.valor }}
                                 </md-option>
@@ -56,6 +57,6 @@
         </div>
     </div>
 </div>
-<div md-dialog-actions>
-    <button md-button (click)="cerrarDialogo()">Cerrar</button>
+<div md-dialog-actions class="direccionbtn">
+    <button md-button (click)="cerrarDialogo()" color="warn">Cerrar</button>
 </div>

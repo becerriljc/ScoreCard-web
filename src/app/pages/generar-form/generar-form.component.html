@@ -143,9 +143,11 @@
                                             </div>
                                         </div>
                                         <div fxFlex fxLayoutAlign="center center" *ngIf="askForm.value.preguntas[i].opciones.length > 1">
-                                            <button md-button (click)="accionesOpciones(item, 2, j)">
-                                                <md-icon>clear</md-icon>
-                                            </button>
+                                            <div class="btnAccion cursorLink example-tooltip-host" mdTooltip="Eliminar pregunta"
+                                                mdTooltipPosition="above" 
+                                                (click)="accionesOpciones(item, 2, j)">
+                                                    <md-icon>clear</md-icon>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -153,7 +155,7 @@
                                     <div fxLayout="row">
                                         <div fxFlex="5"></div>
                                         <div fxFlex="80" fxLayoutAlign="start center">
-                                            <div (click)="accionesOpciones(item, 1, null)">Añadir opción</div>
+                                            <div (click)="accionesOpciones(item, 1, null)" class="cursorLink">Añadir opción</div>
                                         </div>
                                     </div>
                                 </div>
@@ -176,9 +178,11 @@
                                             </div>
                                         </div>
                                         <div fxFlex fxLayoutAlign="center center" *ngIf="askForm.value.preguntas[i].opciones.length > 1">
-                                            <button md-button (click)="accionesOpciones(item, 2, j)">
-                                                <md-icon>clear</md-icon>
-                                            </button>
+                                            <div class="btnAccion cursorLink example-tooltip-host" mdTooltip="Eliminar pregunta"
+                                                mdTooltipPosition="above" 
+                                                (click)="accionesOpciones(item, 2, j)">
+                                                    <md-icon>clear</md-icon>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -186,7 +190,7 @@
                                     <div fxLayout="row">
                                         <div fxFlex="5"></div>
                                         <div fxFlex="80" fxLayoutAlign="start center">
-                                            <div (click)="accionesOpciones(item, 1, null)">Añadir opción</div>
+                                            <div (click)="accionesOpciones(item, 1, null)" class="cursorLink">Añadir opción</div>
                                         </div>
                                     </div>
                                 </div>
@@ -200,7 +204,7 @@
     <br />
     <div fxLayout="row">
         <div fxFlex></div>
-        <div fxFlex="10">
+        <div fxFlex="15">
             <div class="btnCenter">
                 <span class="btnAdd" (click)="accionesPreguntas(1, null)"> Agregar pregunta</span>
             </div>
@@ -214,5 +218,3 @@
         </div>
     </div>
 </form>
-<!--
- -->

@@ -5,6 +5,7 @@ import { AprendizajeForm } from '../aprendizaje-formulario/aprendizaje.form'
 import { GeneraForm } from '../apps-forms/form.component'
 import { VistaPrevia } from '../visor-cuestionarios/visor.component'
 import { NotificacionesComponent } from '../../shared/dialog/notificaciones/notificaciones.component'
+import { Router } from '@angular/router'
 
 import {GenerarFormComponent } from '../generar-form/generar-form.component'
 
@@ -24,7 +25,8 @@ export class ListaFormComponent implements OnInit {
     constructor(
         private appService: AppService,
         private dialog: MdDialog,
-        public _is : InnovaService
+        public _is : InnovaService, 
+        private router : Router
     ){
         appService.getState().topnavTitle = 'Aprendizaje / Innovación';
         this._is.cargaResult()
@@ -70,8 +72,8 @@ export class ListaFormComponent implements OnInit {
 
     creaFormulario(llave : string ){
         let dialogRef = this.dialog.open(GeneraForm, {
-            width: '800px',
-            height: '550px'
+            width: '900px',
+            height: '600px'
         })
         dialogRef.componentInstance.key = llave
         dialogRef.afterClosed().subscribe(result => {
@@ -81,8 +83,8 @@ export class ListaFormComponent implements OnInit {
 
     vistaPrevia(llave : string){
         let dialogRef = this.dialog.open(VistaPrevia, {
-            width: '850px',
-            height: '550px'
+            width: '900px',
+            height: '600px'
         })
         dialogRef.componentInstance.key = llave
         dialogRef.afterClosed().subscribe(result => {
@@ -101,5 +103,9 @@ export class ListaFormComponent implements OnInit {
                  this._is.eliminaEncuesta(key)
             }
         })
+    }
+
+    ir_a(obj : string){
+        this.router.navigate(['/aplicarEncuesta', obj])
     }
 }

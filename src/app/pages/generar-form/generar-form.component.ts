@@ -110,15 +110,9 @@ export class GenerarFormComponent implements OnInit {
         return (result || this.askForm.invalid)
     }
 
-    editarPregunta(index : number){
-        console.log(index)
-    }
-
     cuentaPreguntas() : boolean {
         var res = false
-
         if(this.askForm.value.preguntas.length > 1){ res = true }
-
         return res
     }
 

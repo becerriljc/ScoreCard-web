@@ -8,7 +8,7 @@ export class InnovaService {
 
     items: FirebaseListObservable<any[]>
     preguntas : FirebaseListObservable<any[]>
-
+    encuesta : FirebaseListObservable<any[]>
     item : FirebaseListObservable<any[]>
 
     editar : any
@@ -45,6 +45,11 @@ export class InnovaService {
         return data
     }
 
+    habilitaEvaluacion(llave : string){
+        var text = localStorage.getItem('user') + '/procesos/'
+        this.encuesta = this.af.database.list(text)
+    }
+
     cargaResult(){
         this.items = this.af.database.list(localStorage.getItem('user') + '/procesos', {
             query : {
@@ -53,6 +58,11 @@ export class InnovaService {
             }
         })
         return this.items
+    }
+
+    actualizarEncuesta(ref : Caracteristica, llave: string){
+        var text = localStorage.getItem('user') + '/procesos/' + llave
+        return this.af.database.object(text).set(ref)
     }
 
     eliminaEncuesta(llave : string ){
