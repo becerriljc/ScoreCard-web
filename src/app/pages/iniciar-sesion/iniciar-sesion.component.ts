@@ -41,8 +41,8 @@ export class IniciarSesionComponent implements OnInit, OnDestroy {
 
     iniciarSesion(){
       this.as.login(this.sesionForm.value).then( (res) => {
-          this.router.navigate([''])
           localStorage.setItem('user', res.uid)
+          this.router.navigate([''])
       }).catch( (err) => {
           this.error = 'El usuario y/o contraseña  incorrecto.'
           console.error('HUBO UN ERROR', err)

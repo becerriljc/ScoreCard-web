@@ -103,6 +103,11 @@ export const ROUTES: Routes = [
     canActivate : [VerificaAuth]
   },
   {
+    path: 'aprendizaje/:idPestana',
+    component: Aprendizaje,
+    canActivate : [VerificaAuth]
+  },
+  {
     path: 'component-buttons',
     component: ComponentButtonsComponent,
     canActivate : [VerificaAuth]
@@ -363,6 +368,7 @@ export const ROUTES: Routes = [
   },
   {
     path: 'aplicarEncuesta/:idEncuesta',
-    component: AplicarEncuestaComponent
+    component: AplicarEncuestaComponent,
+    canActivate : [VerificaAuth]
   }
 ]

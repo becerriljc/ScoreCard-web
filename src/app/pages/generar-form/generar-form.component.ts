@@ -46,9 +46,6 @@ export class GenerarFormComponent implements OnInit {
         private sform : FormulariosService){}
 
     ngOnInit() {
-      this._is.cargaPreguntas(this.key).subscribe(() => {
-            console.log('estamos dentro con ', this.key)
-        })
         this.askForm = this.sform.initFormEncuestas()
     }
 
@@ -60,7 +57,7 @@ export class GenerarFormComponent implements OnInit {
             control.removeAt(index)
         }
     }
-
+    
     accionesPreguntas(act : number, index : number){
         const control = <FormArray> this.askForm.controls['preguntas']
         if(act == 1){
@@ -71,7 +68,7 @@ export class GenerarFormComponent implements OnInit {
     }
 
     guardar(){
-       this._is.addEncuesta(this.askForm.value).then((res) =>{
+        this._is.addEncuesta(this.askForm.value).then((res) =>{
            this.abrirDialogo(1)
            this.askForm = this.sform.initFormEncuestas()
        }).catch((err) => {

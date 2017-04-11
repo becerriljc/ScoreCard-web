@@ -19,9 +19,6 @@ import { InnovaService } from '../../services/innova.service'
 })
 export class ListaFormComponent implements OnInit {
 
-    selectedOption: string
-    htmlForm : string = ''
-
     constructor(
         private appService: AppService,
         private dialog: MdDialog,
@@ -29,7 +26,7 @@ export class ListaFormComponent implements OnInit {
         private router : Router
     ){
         appService.getState().topnavTitle = 'Aprendizaje / Innovación';
-        this._is.cargaResult()
+        this._is.cargaEncuesta()
         .subscribe(() => {
             console.log('mensajes cargados...')
         })
@@ -47,27 +44,10 @@ export class ListaFormComponent implements OnInit {
             case 3: this.eliminaItem(llave)
             break
         }
-    }    
-
-    titulo : string = ''
-    descripcion : string = ''
+    } 
 
     eliminaItem(llave : string){
         this.abrirDialogo(3, llave)
-    }
-
-    agregarForm(){
-        var _tit = this.titulo.trim()
-        var _desc = this.descripcion.trim()
-        if(_tit.length == 0 || _desc.length == 0){
-            return
-        }
-        this._is.agregarEncuesta(_tit, _desc)
-        .then( () => {
-            this.titulo = ''
-            this.descripcion = ''
-        })
-        .catch( (err) => console.error(err))
     }
 
     creaFormulario(llave : string ){

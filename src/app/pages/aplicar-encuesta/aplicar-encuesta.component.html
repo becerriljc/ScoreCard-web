@@ -3,8 +3,13 @@
         <button md-icon-button  (click)="ir_a()">
             <md-icon>keyboard_backspace</md-icon>
         </button>
-        <span>Regresar</span>
-        <h3>{{ primitiva.titulo }}</h3>
+        <form>
+        <span class="tituloEncuesta">{{ primitiva.titulo }} para </span>
+        <md-select placeholder="Seleccione un cliente" class="estiloTextOpciones">
+            <md-option *ngFor="let client of cliente | async" [value]="client.$key">
+                {{ client.perfil.nombre }}
+            </md-option>
+        </md-select>
         <div fxLayout="column">
             <div fxFlex>
                 <p class="estiloTextoPregunta">{{ primitiva.descripcion }}</p>
@@ -55,8 +60,26 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="primitivas.length == 0">
-                <p>SIN PREGUNTAS PARA MOSTRAR</p>
+            <div fxFlex>
+                <div fxLayout="row">
+                    <div fxFlex>
+                        <button md-icon-button>
+                            <md-icon></md-icon>
+                        </button>
+                    </div>
+                    <div fxFlex>
+                        <button md-icon-button>
+                            <md-icon>search</md-icon>
+                        </button>
+                    </div>
+                    <div fxFlex>
+                        <button md-icon-button>
+                            <md-icon>search</md-icon>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
+        </form>
   </md-card>
+</div>

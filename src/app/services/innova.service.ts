@@ -6,52 +6,30 @@ import { Caracteristica, Preguntas, Conjunto } from '../interface/item.interface
 @Injectable()
 export class InnovaService {
 
-    items: FirebaseListObservable<any[]>
-    preguntas : FirebaseListObservable<any[]>
-    encuesta : FirebaseListObservable<any[]>
-    item : FirebaseListObservable<any[]>
+    // observador de las encuestas
+    items: FirebaseListObservable<any[]> 
+    //observador de clientes
+    clientes : FirebaseListObservable<any[]>
 
-    editar : any
+    root : string = 'encuestas/' + localStorage.getItem('user')
 
     constructor( public af : AngularFire ) { }
 
-    iniciarSesion(user : string, pass : string){
-        return this.af.auth.login({
-            email: user,
-            password: pass
-            }, {
-            provider: AuthProviders.Password,
-            method: AuthMethods.Password
-        })
-    }
-
-    cerrarSesion(){
-        return this.af.auth.logout()
-    }
-
-    cargaPreguntas(llave : string){
-
-        var text = localStorage.getItem('user') + '/procesos/' + llave + '/preguntas'
-        this.preguntas = this.af.database.list(text)
-        return this.preguntas
-    }
-
     cargaEvaluacion(llave : string){
-        var text = localStorage.getItem('user') + '/procesos/' + llave
         var data : any = null
-        this.af.database.object(text).forEach(item => {
-            data = item
+        this.af.database.object(this.root  + '/' + llave).forEach(item => {
+                data = item
         })
         return data
     }
 
-    habilitaEvaluacion(llave : string){
-        var text = localStorage.getItem('user') + '/procesos/'
-        this.encuesta = this.af.database.list(text)
+    clientesTodos(){
+        this.clientes =  this.af.database.list('clientes')
+        return this.clientes
     }
 
-    cargaResult(){
-        this.items = this.af.database.list(localStorage.getItem('user') + '/procesos', {
+    cargaEncuesta(){
+        this.items = this.af.database.list(this.root, {
             query : {
                 limitToLast: 20,
                 orderByKey: true
@@ -61,57 +39,15 @@ export class InnovaService {
     }
 
     actualizarEncuesta(ref : Caracteristica, llave: string){
-        var text = localStorage.getItem('user') + '/procesos/' + llave
-        return this.af.database.object(text).set(ref)
+        return this.af.database.object(this.root  + '/' + llave).set(ref)
     }
 
     eliminaEncuesta(llave : string ){
         return this.items.remove(llave)
     }
 
-    agregarEncuesta(_titulo : string, _desc : string){
-        let encuesta : Encabezado = {
-            titulo: _titulo,
-            descripcion : _desc
-        }
-
-        return this.items.push( encuesta )
-    }
-
     addEncuesta(encuesta : Caracteristica){
         return this.items.push( encuesta )
     }
 
-    agregarPregunta(obj : Preguntas){       
-        return this.preguntas.push(obj)
-    }
-
-    login(_email : string, _password : string) {
-        this.af.auth.login({
-            email: _email,
-            password: _password,
-        },{
-            provider: AuthProviders.Password,
-            method: AuthMethods.Password,
-        })
-    }
-
-    logout() {
-        this.af.auth.logout()
-    }
-
-    insertaPreguntas(coleccion : any[]){
-        for(var i = 0; i < coleccion.length; i++){
-            this.preguntas.push(coleccion[i])
-        }
-    }
-
-    resultadoVector(llave : string){
-        var data : any[] = []
-        var text = localStorage.getItem('user') + '/procesos/' + llave + '/preguntas'
-        this.af.database.list(text).forEach(result => {
-            data.push(result)
-        })
-        return data[0]
-    }
 }

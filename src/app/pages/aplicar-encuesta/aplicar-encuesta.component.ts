@@ -12,6 +12,7 @@ export class AplicarEncuestaComponent implements OnInit {
 
     private primitiva : any
     private primitivas : any[] = []
+    private cliente : any
     
     constructor(
         private router : Router,
@@ -20,6 +21,7 @@ export class AplicarEncuestaComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.cliente = this.is.clientesTodos()
         let idEncuesta = this.route.snapshot.params['idEncuesta']
         this.primitiva = this.is.cargaEvaluacion(idEncuesta)
         if(typeof this.primitiva.preguntas !== 'undefined'){
@@ -30,7 +32,7 @@ export class AplicarEncuestaComponent implements OnInit {
    }
 
     ir_a(){
-        this.router.navigate(['/aprendizaje'])
+        this.router.navigate(['/aprendizaje',1])
     }
 
 }

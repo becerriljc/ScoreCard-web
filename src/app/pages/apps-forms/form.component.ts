@@ -56,14 +56,4 @@ export class GeneraForm implements OnInit {
             this.dialogRef.close('false')
         })
     }
-
-    verificar(cad : string, valor : number) : string {
-        console.log(valor)
-        return cad
-    }
-
-    validaForm() : boolean {
-        return false
-    }
-
 }

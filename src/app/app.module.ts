@@ -98,7 +98,6 @@ import { VistaPrevia } from './pages/visor-cuestionarios/visor.component';
 import { GenerarFormComponent } from './pages/generar-form/generar-form.component';
 import { ListaFormComponent } from './pages/lista-form/lista-form.component';
 import { IniciarSesionComponent } from './pages/iniciar-sesion/iniciar-sesion.component';
-import { PrincipalComponent } from './pages/principal/principal.component';
 import { NotificacionesComponent } from './shared/dialog/notificaciones/notificaciones.component';
 import { AplicarEncuestaComponent } from './pages/aplicar-encuesta/aplicar-encuesta.component';
 
@@ -173,7 +172,6 @@ import { AplicarEncuestaComponent } from './pages/aplicar-encuesta/aplicar-encue
     GenerarFormComponent,
     ListaFormComponent,
     IniciarSesionComponent,
-    PrincipalComponent,
     NotificacionesComponent,
     AplicarEncuestaComponent
   ],
