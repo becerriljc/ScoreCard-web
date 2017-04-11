@@ -11,9 +11,13 @@ export class InnovaService {
     //observador de clientes
     clientes : FirebaseListObservable<any[]>
 
+    // observador para ejecutar acciones DML
+    acciones: FirebaseObjectObservable<any>
+
     root : string = 'encuestas/' + localStorage.getItem('user')
 
-    constructor( public af : AngularFire ) { }
+    constructor( public af : AngularFire ) {
+    }
 
     cargaEvaluacion(llave : string){
         var data : any = null
@@ -48,6 +52,12 @@ export class InnovaService {
 
     addEncuesta(encuesta : Caracteristica){
         return this.items.push( encuesta )
+    }
+
+    guardaEvaluacion(datos : any, encuestaId : string, clienteId : string){
+        let path = 'clientes/' + clienteId + '/encuestas/' + encuestaId
+        this.acciones = this.af.database.object(path)
+        return this.acciones.set(datos)
     }
 
 }

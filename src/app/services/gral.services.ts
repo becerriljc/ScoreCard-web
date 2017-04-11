@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core'
 import { FormArray, FormGroup } from '@angular/forms'
 import { FormulariosService } from './formularios.service'
+import { NotificacionesComponent } from '../shared/dialog/notificaciones/notificaciones.component'
+import { MdDialog } from '@angular/material'
 
 //interfaces
 import { Caracteristica } from '../interface/item.interface'
@@ -12,7 +14,8 @@ export class GeneralService {
 
     constructor(
         private sForm : FormulariosService,
-        private is : InnovaService){}
+        private is : InnovaService,
+        private dialog : MdDialog){}
 
     update(forma : Caracteristica, llave : string){
         return this.is.actualizarEncuesta(forma, llave)
@@ -75,6 +78,14 @@ export class GeneralService {
         }
         
         return (result || forma.invalid)
+    }
+
+    abrirDialogo(opc : number){
+        let dialogRef = this.dialog.open(NotificacionesComponent, {
+            width: '350px',
+            height: '200px'
+        })
+        dialogRef.componentInstance.opcion = opc
     }
 
 }

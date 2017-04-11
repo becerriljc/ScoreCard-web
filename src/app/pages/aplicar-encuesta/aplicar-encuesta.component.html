@@ -3,83 +3,89 @@
         <button md-icon-button  (click)="ir_a()">
             <md-icon>keyboard_backspace</md-icon>
         </button>
-        <form>
-        <span class="tituloEncuesta">{{ primitiva.titulo }} para </span>
-        <md-select placeholder="Seleccione un cliente" class="estiloTextOpciones">
-            <md-option *ngFor="let client of cliente | async" [value]="client.$key">
-                {{ client.perfil.nombre }}
-            </md-option>
-        </md-select>
-        <div fxLayout="column">
-            <div fxFlex>
-                <p class="estiloTextoPregunta">{{ primitiva.descripcion }}</p>
-            </div>
-            <div fxFlex *ngIf="primitivas.length > 0">
-                <div fxLayout="column" *ngFor="let w of primitivas">
-                    <div fxFlex>
-                        <p  class="estiloTextoPregunta">{{ w.pregunta }}</p>
+        <form (ngSubmit)="guardarEncuesta(forma)" #forma="ngForm" novalidate>
+            <span class="tituloEncuesta">{{ primitiva.titulo }} para </span>
+            <md-select placeholder="Seleccione un cliente" class="estiloTextOpciones" name="idCliente" ngModel required>
+                <md-option *ngFor="let client of cliente | async" [value]="client.$key">
+                    {{ client.perfil.nombre }}
+                </md-option>
+            </md-select>
+            <div fxLayout="column">
+                <div fxFlex>
+                    <p class="estiloTextoPregunta">{{ primitiva.descripcion }}</p>
+                </div>
+                <div fxFlex *ngIf="primitivas.length > 0">
+                    <div fxLayout="column" *ngFor="let w of primitivas; let q=index;">
+                        <div fxFlex>
+                            <p  class="estiloTextoPregunta">{{ w.pregunta }}</p>
+                        </div>
+                        <div fxFlex>
+                            <div fxLayout="column" [ngSwitch]="w.tipo">
+                                <div fxFlex *ngSwitchCase="1">
+                                    <md-input-container class="estiloTextOpciones">
+                                        <input mdInput 
+                                            placeholder="Respuesta..." 
+                                            name="{{q}}" 
+                                            ngModel 
+                                            required>
+                                    </md-input-container>
+                                </div>
+                                <div fxFlex *ngSwitchCase="2">
+                                    <textarea class="estiloTextOpciones maxWidth" rows="6" 
+                                        placeholder="Esto es un texto en un parrafo" 
+                                        name="{{q}}" 
+                                        ngModel 
+                                        required>
+                                    </textarea>
+                                </div>
+                                <div fxFlex *ngSwitchCase="3">
+                                    <md-radio-group 
+                                        name="{{q}}" 
+                                        ngModel 
+                                        required>
+                                        <p *ngFor="let opc of w.opciones">
+                                            <md-radio-button value="{{opc.valor}}">{{ opc.valor }}</md-radio-button>
+                                        </p>
+                                    </md-radio-group>
+                                </div>
+                                <div fxFlex *ngSwitchCase="4">
+                                    <div fxLayout="column">
+                                        <div fxFlex *ngFor="let opc of w.opciones; let t=index;">
+                                            <md-checkbox name="{{q}}.{{t}}" ngModel>{{ opc.valor }}</md-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div fxFlex *ngSwitchCase="5">
+                                    <md-select placeholder="Seleccione una respuesta" class="estiloTextOpciones" name="{{q}}" ngModel required>
+                                        <md-option *ngFor="let opc of w.opciones" [value]="opc.valor">
+                                            {{ opc.valor }}
+                                        </md-option>
+                                    </md-select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div fxFlex>
-                        <div fxLayout="column" [ngSwitch]="w.tipo">
-                            <div fxFlex *ngSwitchCase="1">
-                                <md-input-container class="estiloTextOpciones">
-                                    <input mdInput placeholder="Respuesta...">
-                                </md-input-container>
+                </div>
+                <div fxFlex>
+                    <div fxLayout="row">
+                        <div fxFlex="90"></div>
+                        <div fxFlex>
+                            <div class="example-tooltip-host" mdTooltip="Limpiar" mdTooltipPosition="above">
+                                <button type="reset" md-icon-button>
+                                    <md-icon>clear_all</md-icon>
+                                </button>
                             </div>
-                            <div fxFlex *ngSwitchCase="2">
-                                <textarea class="estiloTextOpciones" rows="6" placeholder="Esto es un texto en un parrafo" class="maxWidth"></textarea>
-                            </div>
-                            <div fxFlex *ngSwitchCase="3">
-                                <div fxLayout="row" *ngFor="let opc of w.opciones">
-                                    <div fxFlex="5">
-                                        <md-radio-button value="1"></md-radio-button>
-                                    </div>
-                                    <div fxFlex>
-                                        <span class="estiloTextOpciones">{{ opc.valor }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div fxFlex *ngSwitchCase="4">
-                                <div fxLayout="row" *ngFor="let opc of w.opciones">
-                                    <div fxFlex="5">
-                                        <md-checkbox></md-checkbox>
-                                    </div>
-                                    <div fxFlex>
-                                        <span class="estiloTextOpciones">{{ opc.valor }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div fxFlex *ngSwitchCase="5">
-                                <md-select placeholder="Seleccione una respuesta" class="estiloTextOpciones">
-                                    <md-option *ngFor="let opc of w.opciones" [value]="opc.valor">
-                                        {{ opc.valor }}
-                                    </md-option>
-                                </md-select>
+                        </div>
+                        <div fxFlex>
+                            <div class="example-tooltip-host" mdTooltip="Enviar" mdTooltipPosition="above">
+                                <button type="submit" md-icon-button [disabled]="forma.invalid">
+                                    <md-icon>send</md-icon>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div fxFlex>
-                <div fxLayout="row">
-                    <div fxFlex>
-                        <button md-icon-button>
-                            <md-icon></md-icon>
-                        </button>
-                    </div>
-                    <div fxFlex>
-                        <button md-icon-button>
-                            <md-icon>search</md-icon>
-                        </button>
-                    </div>
-                    <div fxFlex>
-                        <button md-icon-button>
-                            <md-icon>search</md-icon>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
         </form>
   </md-card>
 </div>

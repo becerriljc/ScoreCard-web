@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms'
 import { MediaChange } from '@angular/flex-layout'
-import { MdDialog } from '@angular/material'
-
-import { NotificacionesComponent } from '../../shared/dialog/notificaciones/notificaciones.component'
 
 //servicios 
 import  { InnovaService } from '../../services/innova.service'
 import { FuncionesService } from '../../services/funciones.service'
 import { FormulariosService } from '../../services/formularios.service'
+import { GeneralService } from '../../services/gral.services'
 
 //Interfaces preguntas
 import { Caracteristica, Preguntas, Conjunto } from '../../interface/item.interface'
@@ -42,8 +40,8 @@ export class GenerarFormComponent implements OnInit {
         private _fb : FormBuilder,
         public _is : InnovaService,
         public _fs : FuncionesService,
-        private dialog : MdDialog,
-        private sform : FormulariosService){}
+        private sform : FormulariosService,
+        private gral : GeneralService){}
 
     ngOnInit() {
         this.askForm = this.sform.initFormEncuestas()
@@ -69,10 +67,10 @@ export class GenerarFormComponent implements OnInit {
 
     guardar(){
         this._is.addEncuesta(this.askForm.value).then((res) =>{
-           this.abrirDialogo(1)
+           this.gral.abrirDialogo(1)
            this.askForm = this.sform.initFormEncuestas()
        }).catch((err) => {
-            this.abrirDialogo(2)
+            this.gral.abrirDialogo(2)
        })
     }
 
@@ -111,13 +109,5 @@ export class GenerarFormComponent implements OnInit {
         var res = false
         if(this.askForm.value.preguntas.length > 1){ res = true }
         return res
-    }
-
-    abrirDialogo(opc : number){
-        let dialogRef = this.dialog.open(NotificacionesComponent, {
-            width: '350px',
-            height: '200px'
-        })
-        dialogRef.componentInstance.opcion = opc
     }
 }
