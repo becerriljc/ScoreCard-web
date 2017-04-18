@@ -2,7 +2,6 @@ import { Component, ViewEncapsulation, OnInit, HostListener } from '@angular/cor
 import { AppService } from './app.service';
 import { Router } from '@angular/router';
 import { MenuMock } from './shared/mockdata/menu';
-import { SearchMock } from './shared/mockdata/search';
 import { MdDialog, MdSnackBar } from '@angular/material';
 import { TranslateService } from 'ng2-translate';
 import { AuthServices } from './services/auth.services'
@@ -21,7 +20,6 @@ export class AppComponent implements OnInit {
     // Mock Menu
     mainMenu = MenuMock.root;
     // Mock search item
-    searchItems = SearchMock.items;
     searchItem: any;
     showTopnavSearch: boolean;
     activeSubMenuName: string;
@@ -138,14 +136,6 @@ export class AppComponent implements OnInit {
     }
 
     selectedSearchItem(event) {
-      if (this.searchItems) {
-        for (let item of this.searchItems) {
-          if (item.link === this.searchItem) {
-            this.router.navigate([this.searchItem]);
-            break;
-          }
-        }
-      }
     }
 
     cierra(){

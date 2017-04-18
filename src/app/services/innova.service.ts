@@ -13,10 +13,125 @@ export class InnovaService {
 
     // observador para ejecutar acciones DML
     acciones: FirebaseObjectObservable<any>
+    encuestas : FirebaseListObservable<any[]>
+    encuestados : FirebaseObjectObservable<any>
+
+    reportePregunta : FirebaseObjectObservable<any>
+    reporteRespuesta : FirebaseObjectObservable<any>
 
     root : string = 'encuestas/' + localStorage.getItem('user')
 
+    private arrayEncuesta : any[] = []
+
     constructor( public af : AngularFire ) {
+        this.encuestas = af.database.list(this.root, {
+            query : {
+                orderByKey: true
+            }
+        })
+    }
+
+    regresaEncuestas() {
+        return this.arrayEncuesta
+    }
+
+    regresaEncuestados(llave : string){
+        var listado : { nombre : string }[] = []
+        this.encuestados = this.af.database.object('clientes', {preserveSnapshot : true})
+        this.encuestados.subscribe(snapshots => {
+            snapshots.forEach(snapshot => {
+                var aprobado = false
+                snapshot.forEach(snapshott => {
+                    if(snapshott.key == 'encuestas'){
+                        snapshott.forEach(snapshotd => {
+                            if(snapshotd.key == llave){
+                                aprobado = true
+                            }
+                        })
+                    }
+                    if(snapshott.key == 'perfil' && aprobado){
+                        listado.push({nombre : snapshott.val().nombre})
+                    }
+                })
+            })
+        })
+        return listado
+    }
+
+    establecerUid(uid : string){
+        this.reportePregunta = this.af.database.object('encuestas/' + uid, {preserveSnapshot : true})
+    }
+
+    establecerPreguntas(){
+        var texto : string = ''
+        var todo : string = ''
+        var titulo : string = ''
+        var llave : string = ''
+        var respuestas : string = ''
+        var cont = 0
+        this.reportePregunta.subscribe(snapshots => {
+            snapshots.forEach(snapshot => {
+                todo = "Nombre cliente"
+                titulo = 'Encuesta:'
+                cont = 0
+                llave = snapshot.key
+                snapshot.forEach(snapshotd => {
+                    if(snapshotd.key == 'preguntas'){
+                        snapshotd.forEach(item => {
+                            todo += ',' + item.val().pregunta
+                        })
+                        cont++
+                        todo += '\r\n'
+                    }
+                    if(snapshotd.key == 'titulo'){
+                        titulo += ',' + snapshotd.val() + '\r\n'
+                        cont++
+                    }
+                    if(cont == 2){
+                        texto += titulo + todo
+                    }
+                })
+            })
+        })
+        return texto
+    }
+
+    encuestasATexto(uid : string){
+        var texto : string = ''
+        var todo : string = ''
+        var titulo : string = ''
+        var llave : string = ''
+        var respuestas : string = ''
+        var cont = 0
+        this.af.database.object('encuestas/' + uid, {preserveSnapshot : true}).subscribe(snapshots => {
+            snapshots.forEach(snapshot => {
+                todo = "Nombre cliente"
+                titulo = 'Encuesta:'
+                cont = 0
+                llave = snapshot.key
+                snapshot.forEach(snapshotd => {
+                    if(snapshotd.key == 'preguntas'){
+                        snapshotd.forEach(item => {
+                            todo += ',' + item.val().pregunta
+                        })
+                        cont++
+                        todo += '\r\n'
+                    }
+                    if(snapshotd.key == 'titulo'){
+                        titulo += ',' + snapshotd.val() + '\r\n'
+                        cont++
+                    }
+                    if(cont == 2){
+                        texto += titulo + todo
+                        this.af.database.object('clientes', {preserveSnapshot : true}).subscribe(items => {
+                            respuestas += 'jejejejejeje,'
+                        })
+                        console.log(respuestas)
+                    }
+                })
+            })
+        })
+        return texto
     }
 
     cargaEvaluacion(llave : string){
@@ -35,7 +150,6 @@ export class InnovaService {
     cargaEncuesta(){
         this.items = this.af.database.list(this.root, {
             query : {
-                limitToLast: 20,
                 orderByKey: true
             }
         })

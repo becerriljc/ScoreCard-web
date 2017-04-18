@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router'
 import { AppService } from '../../app.service'
+import { saveAs } from 'file-saver'
+
+//servicios
+import { InnovaService } from '../../services/innova.service'
 
 @Component({
     selector: 'lk-aprendizaje',
@@ -12,11 +16,12 @@ import { AppService } from '../../app.service'
 
 export class Aprendizaje implements OnInit{
 
-    selectIndex: number = 0
+    selectIndex: number = 2
 
     constructor(
         private appService: AppService,
-        private route : ActivatedRoute
+        private route : ActivatedRoute,
+        private is : InnovaService
     ){
         appService.getState().topnavTitle = 'Aprendizaje / Innovación';
     }
@@ -26,5 +31,17 @@ export class Aprendizaje implements OnInit{
         if(pestana != 'undefined'){
             this.selectIndex = pestana
         }
+     }
+
+     crearCSV(){
+        var options = { 
+            type: 'text/csv;charset=utf-8' 
+        }
+        var fecha = new Date()
+        var filename = btoa(fecha.toString()) + '.csv'
+        this.is.establecerUid(localStorage.getItem('user'))
+
+        var info = this.is.establecerPreguntas()
+        //saveAs(new Blob([info], options), filename)
      }
 }

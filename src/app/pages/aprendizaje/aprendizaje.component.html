@@ -15,8 +15,18 @@
                 </md-card>
             </md-tab>
             <md-tab label="Reporte encuestas">
-                <h1>Some more tab content</h1>
-                <p>...</p>
+                <md-card class="page-card">
+                     <md-card-title>Concentrado de clientes y encuestas</md-card-title>
+                    <md-card-subtitle>
+                        <div class="enlace" (click)="crearCSV()">
+                            <span>Exportar encuestas </span>
+                            <md-icon>file_download</md-icon>
+                        </div>
+                    </md-card-subtitle>
+                    <md-card-content>
+                        <app-reportes></app-reportes>
+                    </md-card-content>
+                </md-card>
             </md-tab>
         </md-tab-group>
 </div>

@@ -1,10 +1,10 @@
 <div class="sign-container">
   <div class="sign-background"></div>
-  <form [formGroup]="sesionForm" (ngSubmit)="iniciarSesion()" novalidate>
     <md-card class="sign-card">
-      <md-card-title><img style="height: 64px;" src="assets/img/logo-full.svg"></md-card-title>
+      <md-card-title style="align: middle;"><img style="height: 64px;" src="assets/img/summit.png"></md-card-title>
       <md-card-subtitle>Inicia Sesión para continuar.</md-card-subtitle>
       <br>
+      <form [formGroup]="sesionForm" (ngSubmit)="iniciarSesion()" novalidate>
       <md-card-content>
         <md-input-container>
           <input mdInput type="email" placeholder="Correo electrónico" formControlName="usuario">
@@ -18,8 +18,8 @@
       <md-card-actions>
         <button md-raised-button color="primary" [disabled]="validarForm()">INGRESAR</button>
       </md-card-actions>
+      </form>
     </md-card>
-  </form>
   <br>
   <p>No puedes ingresar? <a>Recupera tus credenciales</a></p>
 </div>
