@@ -39,9 +39,13 @@ export class Aprendizaje implements OnInit{
         }
         var fecha = new Date()
         var filename = btoa(fecha.toString()) + '.csv'
+        
         this.is.establecerUid(localStorage.getItem('user'))
-
         var info = this.is.establecerPreguntas()
-        //saveAs(new Blob([info], options), filename)
+        var texto : string = ''
+        for(var x = 0; x < info.length; x++){
+            texto +=  info[x].valor + this.is.establecerRespuesta(info[x].llave)
+        }
+        saveAs(new Blob([texto], options), filename)
      }
 }

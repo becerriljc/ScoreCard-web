@@ -18,6 +18,7 @@ export class InnovaService {
 
     reportePregunta : FirebaseObjectObservable<any>
     reporteRespuesta : FirebaseObjectObservable<any>
+    valores : FirebaseObjectObservable<any>
 
     root : string = 'encuestas/' + localStorage.getItem('user')
 
@@ -29,6 +30,7 @@ export class InnovaService {
                 orderByKey: true
             }
         })
+        this.valores = af.database.object('encuestas', {preserveSnapshot : true})
     }
 
     regresaEncuestas() {
@@ -60,10 +62,11 @@ export class InnovaService {
 
     establecerUid(uid : string){
         this.reportePregunta = this.af.database.object('encuestas/' + uid, {preserveSnapshot : true})
+        this.reporteRespuesta = this.af.database.object('clientes', {preserveSnapshot : true})
     }
 
     establecerPreguntas(){
-        var texto : string = ''
+        var vector : {llave : string, valor : string}[] = []
         var todo : string = ''
         var titulo : string = ''
         var llave : string = ''
@@ -75,6 +78,7 @@ export class InnovaService {
                 titulo = 'Encuesta:'
                 cont = 0
                 llave = snapshot.key
+                var elemento = {llave : snapshot.key, valor : ''}
                 snapshot.forEach(snapshotd => {
                     if(snapshotd.key == 'preguntas'){
                         snapshotd.forEach(item => {
@@ -88,51 +92,54 @@ export class InnovaService {
                         cont++
                     }
                     if(cont == 2){
-                        texto += titulo + todo
+                        elemento.valor = titulo + todo
+                        vector.push(elemento)
                     }
                 })
             })
         })
-        return texto
+        return vector
     }
 
-    encuestasATexto(uid : string){
-        var texto : string = ''
-        var todo : string = ''
-        var titulo : string = ''
-        var llave : string = ''
-        var respuestas : string = ''
-        var cont = 0
-        this.af.database.object('encuestas/' + uid, {preserveSnapshot : true}).subscribe(snapshots => {
-            snapshots.forEach(snapshot => {
-                todo = "Nombre cliente"
-                titulo = 'Encuesta:'
-                cont = 0
-                llave = snapshot.key
-                snapshot.forEach(snapshotd => {
-                    if(snapshotd.key == 'preguntas'){
-                        snapshotd.forEach(item => {
-                            todo += ',' + item.val().pregunta
+    establecerRespuesta(eid : string){
+        var completo : string = ''
+        this.reporteRespuesta.subscribe(clientes => {
+            clientes.forEach(cliente => {
+                var x : number = 0
+                var name : string = ''
+                var texto : string = ''
+                cliente.forEach(items => {
+                    if(items.key == 'encuestas'){
+                        items.forEach(encuesta => {
+                            if(encuesta.key == eid){
+                                encuesta.forEach(res => {
+                                    if(typeof res.val() == 'object'){
+                                        var sub = ''
+                                        res.forEach(valores => {
+                                            sub += valores.val().dato + ' '
+                                        })
+                                        texto += ',' + sub
+                                    }else{
+                                        texto += ',' + res.val()
+                                    }
+                                })
+                                x++
+                            }
                         })
-                        cont++
-                        todo += '\r\n'
                     }
-                    if(snapshotd.key == 'titulo'){
-                        titulo += ',' + snapshotd.val() + '\r\n'
-                        cont++
+                    if(items.key == 'perfil'){
+                        name = items.val().nombre
+                        x++
                     }
-                    if(cont == 2){
-                        texto += titulo + todo
-                        this.af.database.object('clientes', {preserveSnapshot : true}).subscribe(items => {
-                            respuestas += 'jejejejejeje,'
-                        })
-                        console.log(respuestas)
+                    if(x == 2){
+                        completo += name + texto + '\r\n'
                     }
                 })
             })
         })
-        return texto
+        return completo
     }
+
 
     cargaEvaluacion(llave : string){
         var data : any = null
@@ -145,6 +152,10 @@ export class InnovaService {
     clientesTodos(){
         this.clientes =  this.af.database.list('clientes')
         return this.clientes
+    }
+
+    capturaClientes(){
+        this.valores = this.af.database.object('encuestas', {preserveSnapshot : true})
     }
 
     cargaEncuesta(){
@@ -174,4 +185,34 @@ export class InnovaService {
         return this.acciones.set(datos)
     }
 
+    async encuentraValor(idEncuesta : string, keyPregunta : string, keyOpcion){
+        var result : string = ''
+        await this.valores.subscribe(snapshots => {
+            snapshots.forEach(snapshot => {
+                snapshot.forEach(items => {
+                    if(items.key == idEncuesta){
+                        items.forEach(item => {
+                            if(item.key == 'preguntas'){
+                                item.forEach(pregunta => {
+                                    if(pregunta.key == keyPregunta){
+                                        pregunta.forEach(res =>{
+                                            if(res.key == 'opciones'){
+                                                res.forEach(value => {
+                                                    if(value.key == keyOpcion){
+                                                        result = value.val().valor
+                                                        
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+            })
+        })
+        return result
+    }
 }

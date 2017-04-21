@@ -51,7 +51,7 @@
                                 <div fxFlex *ngSwitchCase="4">
                                     <div fxLayout="column">
                                         <div fxFlex *ngFor="let opc of w.opciones; let t=index;">
-                                            <md-checkbox name="{{q}}.{{t}}" ngModel>{{ opc.valor }}</md-checkbox>
+                                            <md-checkbox name="{{q}}.{{t}}" aria-label="{{ opc.valor }}" ngModel>{{ opc.valor }}</md-checkbox>
                                         </div>
                                     </div>
                                 </div>
