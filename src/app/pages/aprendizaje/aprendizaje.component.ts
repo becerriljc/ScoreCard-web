@@ -16,14 +16,14 @@ import { InnovaService } from '../../services/innova.service'
 
 export class Aprendizaje implements OnInit{
 
-    selectIndex: number = 2
+    private selectIndex : number = 1
 
     constructor(
         private appService: AppService,
         private route : ActivatedRoute,
         private is : InnovaService
     ){
-        appService.getState().topnavTitle = 'Aprendizaje / Innovación';
+        appService.getState().topnavTitle = 'Aprendizaje / Innovación'
     }
 
     ngOnInit(){

@@ -28,20 +28,29 @@ import { VerificaAuth } from './app.guard'
 import { AuthServices } from './services/auth.services'
 import { FormulariosService } from './services/formularios.service'
 import { GeneralService } from './services/gral.services'
+import { CursosService } from './services/cursos.service'
+import { UsuarioService } from './services/usuario.service'
 
 // páginas sistema
 import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
 import { GeneraForm } from './pages/apps-forms/form.component'
-import { VistaPrevia } from './pages/visor-cuestionarios/visor.component';
-import { GenerarFormComponent } from './pages/generar-form/generar-form.component';
-import { ListaFormComponent } from './pages/lista-form/lista-form.component';
-import { IniciarSesionComponent } from './pages/iniciar-sesion/iniciar-sesion.component';
-import { NotificacionesComponent } from './shared/dialog/notificaciones/notificaciones.component';
-import { AplicarEncuestaComponent } from './pages/aplicar-encuesta/aplicar-encuesta.component';
-import { ReportesComponent } from './pages/reportes/reportes.component';
+import { VistaPrevia } from './pages/visor-cuestionarios/visor.component'
+import { GenerarFormComponent } from './pages/generar-form/generar-form.component'
+import { ListaFormComponent } from './pages/lista-form/lista-form.component'
+import { IniciarSesionComponent } from './pages/iniciar-sesion/iniciar-sesion.component'
+import { NotificacionesComponent } from './shared/dialog/notificaciones/notificaciones.component'
+import { AplicarEncuestaComponent } from './pages/aplicar-encuesta/aplicar-encuesta.component'
+import { CursosComponent } from './pages/cursos/cursos.component'
+import { GenerarCursosComponent } from './pages/generar-cursos/generar-cursos.component'
+import { ListarCursosComponent } from './pages/listar-cursos/listar-cursos.component'
+import { NuevoCursoComponent } from './shared/dialog/nuevo-curso/nuevo-curso.component'
+import { ReportesComponent } from './pages/reportes/reportes.component'
 
 //pipes
-import { KeysPipe } from './pipes/convertir-array'
+import { KeysPipe } from './pipes/convertir-array';
+import { FiltrosPipe } from './pipes/filtros.pipe';
+
+import { AplicaCursoComponent } from './shared/dialog/aplica-curso/aplica-curso.component'
 
 /**
  * Root Module
@@ -61,7 +70,13 @@ import { KeysPipe } from './pipes/convertir-array'
     NotificacionesComponent,
     AplicarEncuestaComponent,
     ReportesComponent,
-    KeysPipe
+    KeysPipe,
+    CursosComponent,
+    GenerarCursosComponent,
+    ListarCursosComponent,
+    NuevoCursoComponent,
+    FiltrosPipe,
+    AplicaCursoComponent
   ],
   imports: [
     // Angular Imports
@@ -96,13 +111,17 @@ import { KeysPipe } from './pipes/convertir-array'
     AuthServices,
     VerificaAuth,
     FormulariosService,
-    GeneralService
+    GeneralService,
+    CursosService,
+    UsuarioService
   ],
   entryComponents: [
     // Customize dialog must be import here.
     GeneraForm,
     VistaPrevia,
-    NotificacionesComponent
+    NotificacionesComponent,
+    NuevoCursoComponent,
+    AplicaCursoComponent
   ],
   bootstrap: [AppComponent]
 })

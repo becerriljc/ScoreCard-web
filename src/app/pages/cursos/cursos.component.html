@@ -1,0 +1,22 @@
+<div class="page-content">
+        <md-tab-group selectedIndex="{{selectIndex}}">
+            <md-tab label="Cursos">
+                <md-card class="page-card">
+                    <md-card-title>Listado de Cursos</md-card-title>
+                    <md-card-subtitle>Crea tus cursos. | Visualiza. | Edita en un sólo clic.</md-card-subtitle>
+                    <md-card-content>
+                        <app-generar-cursos></app-generar-cursos>
+                    </md-card-content>
+                </md-card>
+            </md-tab>
+            <md-tab label="Reporte Cursos">
+                 <md-card class="page-card">
+                     <md-card-title>Evaluaciónes de cursos.</md-card-title>
+                    <md-card-subtitle>Visualiza tus evaluaciones.</md-card-subtitle>
+                    <md-card-content>
+                        <app-listar-cursos></app-listar-cursos>
+                    </md-card-content>
+                </md-card>
+            </md-tab>
+        </md-tab-group>
+</div>

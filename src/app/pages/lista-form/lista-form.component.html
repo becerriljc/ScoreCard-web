@@ -10,8 +10,8 @@
         <tbody>
             <tr *ngFor="let item of _is.items | async">
                 <td>{{ item.titulo }}</td>
-                    <td>{{item.descripcion }}</td>
-                    <td>
+                <td>{{item.descripcion }}</td>
+                <td>
                         <div class="espIcons example-tooltip-host" mdTooltip="Editar encuesta"
                             mdTooltipPosition="above" (click)="accion(item, 1)">
                             <a md-icon-button>

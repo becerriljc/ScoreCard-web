@@ -1,0 +1,40 @@
+<h2 md-dialog-title>Cursos</h2>
+<div md-dialog-content>
+    <form [formGroup]="forma"  (ngSubmit)="accion(forma)" novalidate>
+      <div fxLayout="column">
+          <div fxFlex>
+              <md-input-container>
+                    <input  mdInput 
+                        placeholder="Nombre del curso"
+                        formControlName="nombre"
+                        class="inputText">
+                </md-input-container>
+          </div>
+          <div fxFlex>
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div fxFlex>
+                    <md-input-container>
+                        <input  mdInput 
+                            placeholder="Calificación mínima"
+                            formControlName="calificacion_min"
+                            class="inputText">
+                    </md-input-container>
+                </div>
+                <div fxFlex="40">
+                    <md2-datepicker type="date"
+                      formControlName="fecha_creacion"
+                      placeholder="Fecha de creación"
+                      format="dd/MM/yyyy">
+                  </md2-datepicker>
+                </div>
+              </div>
+          </div>
+          <div fxFlex fxFlexAlign="center">
+            <button type="submit"  [disabled]="validaForma(forma)" md-button color="primary">{{ btnAccion }}</button>
+          </div>
+      </div>
+    </form>
+</div>
+<div md-dialog-actions class="direccionbtn">
+  <button md-raised-button color="warn" (click)="cerrar()">Cerrar</button>
+</div>

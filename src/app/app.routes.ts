@@ -3,6 +3,8 @@ import { Routes } from '@angular/router';
 import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
 import { IniciarSesionComponent } from './pages/iniciar-sesion/iniciar-sesion.component'
 import { AplicarEncuestaComponent } from './pages/aplicar-encuesta/aplicar-encuesta.component'
+import { CursosComponent } from './pages/cursos/cursos.component'
+import { AplicarCursoComponent } from './pages/aplicar-curso/aplicar-curso.component'
 
 //servicio de autenticación
 
@@ -52,6 +54,11 @@ export const ROUTES: Routes = [
   {
     path: 'aplicarEncuesta/:idEncuesta',
     component: AplicarEncuestaComponent,
+    canActivate : [VerificaAuth]
+  },
+  {
+    path: 'cursos',
+    component: CursosComponent,
     canActivate : [VerificaAuth]
   }
 ]
