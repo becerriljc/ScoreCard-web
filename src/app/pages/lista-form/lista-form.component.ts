@@ -19,6 +19,9 @@ import { InnovaService } from '../../services/innova.service'
 })
 export class ListaFormComponent implements OnInit {
 
+    filtrado : string
+    encuestas : any[] = []
+
     constructor(
         private appService: AppService,
         private dialog: MdDialog,
@@ -26,10 +29,7 @@ export class ListaFormComponent implements OnInit {
         private router : Router
     ){
         appService.getState().topnavTitle = 'Aprendizaje / Innovación';
-        this._is.cargaEncuesta()
-        .subscribe(() => {
-            console.log('mensajes cargados...')
-        })
+        this._is.cargaEncuesta().subscribe(enc => this.encuestas = enc)
     }
 
     ngOnInit(){ }

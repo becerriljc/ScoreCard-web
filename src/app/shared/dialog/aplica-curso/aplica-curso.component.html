@@ -1,6 +1,31 @@
-<h2 md-dialog-title>Aplicar cursos</h2>
+<h2 md-dialog-title>Aplicar para: <{{curso.nombre}}></h2>
 <div md-dialog-content >
-<p>hola</p>
+  <form [formGroup]="forma" novalidate (ngSubmit)="califica(forma)">
+    <div fxLayout="column">
+      <div fxFlex>
+          <p color="primary">Calificación mínima: <strong>{{curso.calificacion_min}}</strong></p>
+      </div>
+      <div fxFlex fxFlexFill>
+        <br />
+          <md-select 
+                formControlName="idUsuario"
+                placeholder="Seleccionar" 
+                class="espTotal" >
+                <md-option *ngFor="let uname of usuarios" [value]="uname.$key">
+                    {{ uname.perfil.nombre }}
+                </md-option>
+          </md-select>
+      </div>
+      <div fxFlex="30" fxFlexAlign="start" fxFlexFill>
+            <md-input-container>
+              <input mdInput placeholder="Califica" formControlName="calificacion">
+            </md-input-container>
+      </div>
+      <div fxFlex>
+        <button type="submit" md-button color="primary" [disabled]="verifica(forma)">Evaluar</button>
+      </div>
+    </div>
+  </form>
 </div>
 <div md-dialog-actions class="direccionbtn">
   <button md-raised-button color="warn" (click)="cerrar()">Cerrar</button>

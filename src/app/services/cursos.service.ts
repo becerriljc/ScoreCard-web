@@ -8,14 +8,19 @@ import { ICurso } from '../interface/curso.interface'
 export class CursosService {
 
     cursos : FirebaseListObservable<ICurso[]>
-    usuario_curso : FirebaseObjectObservable<any>
+    cursos_usuario : FirebaseListObservable<any[]>
 
     constructor(private af : AngularFire) { 
         this.cursos = af.database.list('cursos')
+        this.cursos_usuario = af.database.list('cursos-usuario')
     }
 
     regresaCursos(){
         return this.cursos
+    }
+
+    regresaCursosUsuario(){
+        return this.cursos_usuario
     }
 
     detalleCurso(key : string){
@@ -23,7 +28,9 @@ export class CursosService {
     }
 
     eliminaCurso(key : string){
-        return this.cursos.remove(key)
+        return this.cursos.remove(key).then(_ => {
+            this.af.database.list('cursos-usuario').remove(key)
+        })
     }
 
     editaCurso(key : string, objeto : any){
@@ -32,7 +39,9 @@ export class CursosService {
             timestamp : objeto.fecha_creacion.getTime(),
             nombre : objeto.nombre
         }
-        return this.cursos.update(key, item)
+        return this.cursos.update(key, item).then(_ => {
+            this.af.database.list('cursos-usuario').update(key, {info : item})
+        })
     }
 
     agregarCurso(objeto : any){
@@ -41,7 +50,18 @@ export class CursosService {
             timestamp : objeto.fecha_creacion.getTime(),
             nombre : objeto.nombre
         }
-        return this.cursos.push(item)
+        return this.cursos.push(item).then(val => {
+            this.af.database.list('cursos-usuario').update(val.key, {info: item})
+        })
+    }
+
+    addCursoUsuario(idCurso : string, idUser : string, dtUser : any, _calificacion : string){
+        let path = 'cursos-usuario/' + idCurso + '/usuarios/'
+        let data = {
+            perfil : dtUser,
+            calificacion : _calificacion
+        }
+        this.af.database.list(path).update(idUser, data)
     }
 
 }

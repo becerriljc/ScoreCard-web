@@ -9,7 +9,12 @@ import { InnovaService } from '../../services/innova.service'
 })
 export class ReportesComponent implements OnInit {
 
-  constructor(private is : InnovaService) { }
+  filtrado : string
+  encuestas : any[]
+
+  constructor(private is : InnovaService) { 
+    is.obtEncuestas().subscribe(enc => this.encuestas = enc)
+  }
 
   ngOnInit() {
   }

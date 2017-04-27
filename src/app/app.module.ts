@@ -45,12 +45,14 @@ import { GenerarCursosComponent } from './pages/generar-cursos/generar-cursos.co
 import { ListarCursosComponent } from './pages/listar-cursos/listar-cursos.component'
 import { NuevoCursoComponent } from './shared/dialog/nuevo-curso/nuevo-curso.component'
 import { ReportesComponent } from './pages/reportes/reportes.component'
+import { AplicaCursoComponent } from './shared/dialog/aplica-curso/aplica-curso.component'
 
 //pipes
-import { KeysPipe } from './pipes/convertir-array';
-import { FiltrosPipe } from './pipes/filtros.pipe';
-
-import { AplicaCursoComponent } from './shared/dialog/aplica-curso/aplica-curso.component'
+import { KeysPipe } from './pipes/convertir-array'
+import { FiltrosPipe } from './pipes/filtros.pipe'
+import { FiltroCursosPipe } from './pipes/filtro-cursos.pipe';
+import { FiltroTestPipe } from './pipes/filtro-test.pipe';
+import { FiltroReportesPipe } from './pipes/filtro-reportes.pipe'
 
 /**
  * Root Module
@@ -76,7 +78,10 @@ import { AplicaCursoComponent } from './shared/dialog/aplica-curso/aplica-curso.
     ListarCursosComponent,
     NuevoCursoComponent,
     FiltrosPipe,
-    AplicaCursoComponent
+    AplicaCursoComponent,
+    FiltroCursosPipe,
+    FiltroTestPipe,
+    FiltroReportesPipe
   ],
   imports: [
     // Angular Imports

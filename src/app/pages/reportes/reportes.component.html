@@ -1,3 +1,10 @@
+<div fxLayout="column">
+    <div fxFlex>
+        <md-input-container>
+            <input type="text" mdInput [(ngModel)]="filtrado" placeholder="Filtrar por encuesta">
+        </md-input-container>
+    </div>
+</div>
 <section class="bs">
     <table class="table table-striped table-hover table-card">
         <thead>
@@ -8,7 +15,7 @@
             </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let encuesta of is.encuestas | async">
+          <tr *ngFor="let encuesta of encuestas | filtroReportes : filtrado">
             <td>{{encuesta.titulo}}</td>
             <td>
               <ol class="listas">

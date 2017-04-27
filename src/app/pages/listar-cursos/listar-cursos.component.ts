@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { CursosService } from '../../services/cursos.service'
 
 @Component({
   selector: 'app-listar-cursos',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListarCursosComponent implements OnInit {
 
-  constructor() { }
+    cursosAplicados : any[] = []
+    filtrado : string
 
-  ngOnInit() {
-  }
+    constructor(private cs : CursosService) { 
+      cs.regresaCursosUsuario().subscribe(cursos => {
+          this.cursosAplicados = cursos
+      })
+    }
+
+    ngOnInit() {}
+
+    convertirFecha(dato : number){
+        return new Date(dato)
+    }
 
 }

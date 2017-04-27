@@ -33,6 +33,10 @@ export class InnovaService {
         this.valores = af.database.object('encuestas', {preserveSnapshot : true})
     }
 
+    obtEncuestas(){
+        return this.af.database.list(this.root)
+    }
+
     regresaEncuestas() {
         return this.arrayEncuesta
     }
@@ -159,12 +163,7 @@ export class InnovaService {
     }
 
     cargaEncuesta(){
-        this.items = this.af.database.list(this.root, {
-            query : {
-                orderByKey: true
-            }
-        })
-        return this.items
+        return this.af.database.list(this.root)
     }
 
     actualizarEncuesta(ref : Caracteristica, llave: string){

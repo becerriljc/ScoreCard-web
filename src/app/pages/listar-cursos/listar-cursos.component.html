@@ -1,3 +1,49 @@
-<p>
-  listar-cursos works!
-</p>
+<div class="page-content">
+    <div fxLayout="column" fxLayout.xs="column">
+        <div fxFlex *ngIf="cursosAplicados.length > 0">
+            <md-input-container>
+                <input type="text" mdInput [(ngModel)]="filtrado" placeholder="Filtrar por curso">
+            </md-input-container>
+        </div>
+        <div fxFlex *ngIf="cursosAplicados.length == 0">
+          <h4 color="secondary">SIN CURSOS APLICADOS PARA MOSTRAR</h4>
+        </div>
+        <div fxFlex *ngIf="cursosAplicados.length > 0">
+            <section class="bs">
+                <table class="table table-striped table-hover table-card">
+                    <thead class="alignTable">
+                        <tr class="alignTable">
+                            <th style="width:25%;">CURSO</th>
+                            <th style="width:15%;">CALIFICACIÓN MÍNIMA</th>
+                            <th style="width:32%;">ENCUESTADOS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of cursosAplicados | filtroCursos : filtrado">
+                            <td>
+                                <p>{{item.info.nombre}}</p>
+                                <span>{{convertirFecha(item.info.timestamp) | date}}</span>
+                            </td>
+                            <td>
+                                <p>{{item.info.calificacion_min}}</p>
+                            </td>
+                            <td>
+                                <ul>
+                                  <li *ngFor="let user of item.usuarios | keys">
+                                    <span>{{user.value.perfil.nombre}}</span>
+                                    <md-chip-list class="md-chip-list-stacked enLinea">
+                                      <md-chip class="chip-short" selected="true"
+                                          color="primary">
+                                          {{user.value.calificacion}}
+                                        </md-chip>
+                                    </md-chip-list>
+                                  </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+</div>

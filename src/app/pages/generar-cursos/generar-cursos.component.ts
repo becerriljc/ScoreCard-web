@@ -47,8 +47,7 @@ export class GenerarCursosComponent implements OnInit {
     }
 
     convertirFecha(dato : number){
-        var fecha = new Date(dato)
-        return fecha
+        return new Date(dato)
     }
 
     editarCurso(key : string, opc : number){
