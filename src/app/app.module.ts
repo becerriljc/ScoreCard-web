@@ -52,7 +52,10 @@ import { KeysPipe } from './pipes/convertir-array'
 import { FiltrosPipe } from './pipes/filtros.pipe'
 import { FiltroCursosPipe } from './pipes/filtro-cursos.pipe';
 import { FiltroTestPipe } from './pipes/filtro-test.pipe';
-import { FiltroReportesPipe } from './pipes/filtro-reportes.pipe'
+import { FiltroReportesPipe } from './pipes/filtro-reportes.pipe';
+import { AdminUserComponent } from './pages/admin-user/admin-user.component';
+import { ListUserComponent } from './pages/list-user/list-user.component';
+import { FormUserComponent } from './pages/form-user/form-user.component'
 
 /**
  * Root Module
@@ -81,7 +84,10 @@ import { FiltroReportesPipe } from './pipes/filtro-reportes.pipe'
     AplicaCursoComponent,
     FiltroCursosPipe,
     FiltroTestPipe,
-    FiltroReportesPipe
+    FiltroReportesPipe,
+    AdminUserComponent,
+    ListUserComponent,
+    FormUserComponent
   ],
   imports: [
     // Angular Imports
