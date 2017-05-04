@@ -43,14 +43,14 @@ export class IniciarSesionComponent implements OnInit, OnDestroy {
 
     iniciarSesion(){
       this.as.login(this.sesionForm.value).then( (res) => {
-          this.us.detUsuario(res.uid).subscribe(det => {
+          this.us.detUsuario(res.uid).subscribe(resp => {
               let dato = {
                   uid : res.uid,
-                  categoria : det.categoria
+                  categoria : this.obtCategoria(resp.rol)
               }
               localStorage.setItem('user', JSON.stringify(dato))
+              this.router.navigate([''])
           })
-          this.router.navigate([''])
       }).catch( (err) => {
           this.error = 'El usuario y/o contraseña  incorrecto.'
           console.error('HUBO UN ERROR', err)
@@ -59,5 +59,16 @@ export class IniciarSesionComponent implements OnInit, OnDestroy {
 
     validarForm() : boolean{
       return this.sesionForm.invalid
+    }
+
+    obtCategoria(rol : string) : string {
+        var categoria : string = ''
+        switch(rol){
+            case 'supervisor' : categoria = 'supervisores'; break
+            case 'gerente' : categoria = 'gerentes'; break
+            case 'vendedor' : categoria = 'vendedores'; break
+        }
+        return categoria
+
     }
 }

@@ -7,10 +7,10 @@ import { VistaPrevia } from '../visor-cuestionarios/visor.component'
 import { NotificacionesComponent } from '../../shared/dialog/notificaciones/notificaciones.component'
 import { Router } from '@angular/router'
 
-import {GenerarFormComponent } from '../generar-form/generar-form.component'
+//import {GenerarFormComponent } from '../generar-form/generar-form.component'
 
 //servicios firebase
-import { InnovaService } from '../../services/innova.service'
+import { EncuestasService } from '../../services/encuestas.services'
 
 @Component({
   selector: 'app-lista-form',
@@ -25,17 +25,17 @@ export class ListaFormComponent implements OnInit {
     constructor(
         private appService: AppService,
         private dialog: MdDialog,
-        public _is : InnovaService, 
+        public es : EncuestasService, 
         private router : Router
     ){
         appService.getState().topnavTitle = 'Aprendizaje / Innovación';
-        this._is.cargaEncuesta().subscribe(enc => this.encuestas = enc)
+        this.es.obtEncuestas().subscribe(enc => this.encuestas = enc)
     }
 
     ngOnInit(){ }
 
     accion(obj : any, act : number){
-        var llave : string = obj.$key
+        let llave : string = obj.$key
         switch(act){
             case 1 :  this.creaFormulario(llave)
             break
@@ -80,7 +80,9 @@ export class ListaFormComponent implements OnInit {
         dialogRef.componentInstance.opcion = opc
         dialogRef.afterClosed().subscribe(result => {
             if(result == 'true'){
-                 this._is.eliminaEncuesta(key)
+                this.es.remEncuesta(key).then(_ => {
+                    console.log('eliminado')
+                })
             }
         })
     }

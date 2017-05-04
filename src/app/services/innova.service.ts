@@ -20,7 +20,8 @@ export class InnovaService {
     reporteRespuesta : FirebaseObjectObservable<any>
     valores : FirebaseObjectObservable<any>
 
-    root : string = 'encuestas/' + localStorage.getItem('user')
+    dato = JSON.parse(localStorage.getItem('user'))
+    root : string = 'encuestas/' + this.dato.uid
 
     private arrayEncuesta : any[] = []
 
@@ -175,7 +176,10 @@ export class InnovaService {
     }
 
     addEncuesta(encuesta : Caracteristica){
-        return this.items.push( encuesta )
+        this.items.push(encuesta).then(res => {
+            console.log(res)
+        })
+        return Promise.resolve('listo')//this.items.push( encuesta )
     }
 
     guardaEvaluacion(datos : any, encuestaId : string, clienteId : string){

@@ -3,10 +3,11 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms'
 import { MediaChange } from '@angular/flex-layout'
 
 //servicios 
-import  { InnovaService } from '../../services/innova.service'
 import { FuncionesService } from '../../services/funciones.service'
 import { FormulariosService } from '../../services/formularios.service'
 import { GeneralService } from '../../services/gral.services'
+
+import { EncuestasService } from '../../services/encuestas.services'
 
 //Interfaces preguntas
 import { Caracteristica, Preguntas, Conjunto } from '../../interface/item.interface'
@@ -38,10 +39,11 @@ export class GenerarFormComponent implements OnInit {
 
     constructor(
         private _fb : FormBuilder,
-        public _is : InnovaService,
         public _fs : FuncionesService,
         private sform : FormulariosService,
-        private gral : GeneralService){}
+        private gral : GeneralService,
+        private es : EncuestasService){
+        }
 
     ngOnInit() {
         this.askForm = this.sform.initFormEncuestas()
@@ -66,12 +68,12 @@ export class GenerarFormComponent implements OnInit {
     }
 
     guardar(){
-        this._is.addEncuesta(this.askForm.value).then((res) =>{
-           this.gral.abrirDialogo(1)
-           this.askForm = this.sform.initFormEncuestas()
-       }).catch((err) => {
+        this.es.addEncuesta(this.askForm.value).then(_ => {
+            this.gral.abrirDialogo(1)
+            this.askForm = this.sform.initFormEncuestas()
+        }).catch(err => {
             this.gral.abrirDialogo(2)
-       })
+        })
     }
 
     validaForm() : boolean {

@@ -4,7 +4,7 @@ import { MdDialogRef } from '@angular/material'
 import { MediaChange } from '@angular/flex-layout'
 
 //servicios 
-import  { InnovaService } from '../../services/innova.service'
+import  { EncuestasService } from '../../services/encuestas.services'
 import { FuncionesService } from '../../services/funciones.service'
 import { FormulariosService } from '../../services/formularios.service'
 import { GeneralService } from '../../services/gral.services'
@@ -27,7 +27,7 @@ export class GeneraForm implements OnInit {
     
     constructor(
         private _fb : FormBuilder,
-        public _is : InnovaService,
+        public es : EncuestasService,
         public _fs : FuncionesService,
         private dialogRef: MdDialogRef<GeneraForm>,
         private sForm : FormulariosService,
@@ -35,7 +35,7 @@ export class GeneraForm implements OnInit {
         }
     
     ngOnInit(){
-        this.initVal = this._is.cargaEvaluacion(this.key)
+        this.initVal = this.es.cargaEncuesta(this.key)
         this.forma = this.sForm.initFormEncuestas()
         for(var t = 1; t < this.initVal.preguntas.length; t++) {
             this.sForm.accionesControls(this.forma, 1, 'preguntas', null)
@@ -49,9 +49,9 @@ export class GeneraForm implements OnInit {
     }
 
     actualiza(){
-        this.gral.update(this.forma.value, this.key).then(_ => {
-            this.dialogRef.close('actualización correcta')
-        }).catch((err) => {
+        this.es.updEncuesta(this.forma.value, this.key).then(_ => {
+            this.dialogRef.close('true')
+        }).catch(err => {
             console.log('algo paso por error')
             this.dialogRef.close('false')
         })

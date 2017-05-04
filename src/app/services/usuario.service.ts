@@ -11,7 +11,7 @@ export class UsuarioService {
     }
 
     detUsuario(uid : string){
-      return this.af.database.object('usuarios/uid')
+      return this.af.database.object('usuarios/' + uid)
     }
     
 
