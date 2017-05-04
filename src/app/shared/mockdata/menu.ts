@@ -14,6 +14,12 @@ export class MenuMock {
       title : 'Cursos',
       faIcon : 'fa-list-ul',
       link:'/cursos'
+    },
+    {
+      name: 'admin-user',
+      title : 'Usuarios',
+      faIcon : 'fa-users',
+      link:'/admin-user'
     }
   ];
 }

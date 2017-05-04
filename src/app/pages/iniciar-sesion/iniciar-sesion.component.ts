@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 
 import { AuthServices } from '../../services/auth.services'
+import { UsuarioService } from '../../services/usuario.service'
 import { AppService } from '../../app.service'
 
 @Component({
@@ -18,6 +19,7 @@ export class IniciarSesionComponent implements OnInit, OnDestroy {
   constructor(
     private appService : AppService,
     public as : AuthServices,
+    public us : UsuarioService,
     private _fb : FormBuilder,
     private router : Router) { 
         appService.getState().topnavTitle = "Iniciar Sesión"
@@ -41,7 +43,13 @@ export class IniciarSesionComponent implements OnInit, OnDestroy {
 
     iniciarSesion(){
       this.as.login(this.sesionForm.value).then( (res) => {
-          localStorage.setItem('user', res.uid)
+          this.us.detUsuario(res.uid).subscribe(det => {
+              let dato = {
+                  uid : res.uid,
+                  categoria : det.categoria
+              }
+              localStorage.setItem('user', JSON.stringify(dato))
+          })
           this.router.navigate([''])
       }).catch( (err) => {
           this.error = 'El usuario y/o contraseña  incorrecto.'

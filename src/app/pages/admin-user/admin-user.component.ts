@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { AppService } from '../../app.service'
 
 @Component({
   selector: 'app-admin-user',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminUserComponent implements OnInit {
 
-  constructor() { }
+  constructor(private appService: AppService) { 
+    appService.getState().topnavTitle = 'Personal'
+  }
 
   ngOnInit() {
   }

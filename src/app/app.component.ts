@@ -144,6 +144,10 @@ export class AppComponent implements OnInit {
       })
     }
 
+    visitarPerfil(){
+      this.router.navigate(['perfil'])
+    }
+
     existe() : boolean {
       if(localStorage.getItem('user') != null){ return true}
       return false

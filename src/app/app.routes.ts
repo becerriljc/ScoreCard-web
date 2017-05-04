@@ -5,6 +5,8 @@ import { IniciarSesionComponent } from './pages/iniciar-sesion/iniciar-sesion.co
 import { AplicarEncuestaComponent } from './pages/aplicar-encuesta/aplicar-encuesta.component'
 import { CursosComponent } from './pages/cursos/cursos.component'
 import { AplicarCursoComponent } from './pages/aplicar-curso/aplicar-curso.component'
+import { PerfilComponent } from './pages/perfil/perfil.component'
+import { AdminUserComponent } from './pages/admin-user/admin-user.component'
 
 //servicio de autenticación
 
@@ -59,6 +61,16 @@ export const ROUTES: Routes = [
   {
     path: 'cursos',
     component: CursosComponent,
+    canActivate : [VerificaAuth]
+  },
+  {
+    path: 'admin-user',
+    component: AdminUserComponent,
+    canActivate : [VerificaAuth]
+  },
+  {
+    path: 'perfil',
+    component: PerfilComponent,
     canActivate : [VerificaAuth]
   }
 ]

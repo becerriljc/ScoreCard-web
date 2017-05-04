@@ -9,6 +9,10 @@ export class UsuarioService {
     obtenerUsuarios(){
       return this.af.database.list('usuarios')
     }
+
+    detUsuario(uid : string){
+      return this.af.database.object('usuarios/uid')
+    }
     
 
 }

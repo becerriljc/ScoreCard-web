@@ -11,5 +11,4 @@ export class FormUserComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

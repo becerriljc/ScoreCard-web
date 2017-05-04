@@ -46,6 +46,10 @@ import { ListarCursosComponent } from './pages/listar-cursos/listar-cursos.compo
 import { NuevoCursoComponent } from './shared/dialog/nuevo-curso/nuevo-curso.component'
 import { ReportesComponent } from './pages/reportes/reportes.component'
 import { AplicaCursoComponent } from './shared/dialog/aplica-curso/aplica-curso.component'
+import { AdminUserComponent } from './pages/admin-user/admin-user.component';
+import { ListUserComponent } from './pages/list-user/list-user.component';
+import { FormUserComponent } from './pages/form-user/form-user.component';
+import { PerfilComponent } from './pages/perfil/perfil.component'
 
 //pipes
 import { KeysPipe } from './pipes/convertir-array'
@@ -53,9 +57,7 @@ import { FiltrosPipe } from './pipes/filtros.pipe'
 import { FiltroCursosPipe } from './pipes/filtro-cursos.pipe';
 import { FiltroTestPipe } from './pipes/filtro-test.pipe';
 import { FiltroReportesPipe } from './pipes/filtro-reportes.pipe';
-import { AdminUserComponent } from './pages/admin-user/admin-user.component';
-import { ListUserComponent } from './pages/list-user/list-user.component';
-import { FormUserComponent } from './pages/form-user/form-user.component'
+import { FiltroUsuarioPipe } from './pipes/filtro-usuario.pipe';
 
 /**
  * Root Module
@@ -87,7 +89,9 @@ import { FormUserComponent } from './pages/form-user/form-user.component'
     FiltroReportesPipe,
     AdminUserComponent,
     ListUserComponent,
-    FormUserComponent
+    FormUserComponent,
+    PerfilComponent,
+    FiltroUsuarioPipe
   ],
   imports: [
     // Angular Imports
