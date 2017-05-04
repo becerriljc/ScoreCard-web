@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms'
 //services
 import { InnovaService } from '../../services/innova.service'
 import { GeneralService } from '../../services/gral.services'
+import { EncuestasService } from '../../services/encuestas.services'
 
 @Component({
   selector: 'app-aplicar-encuesta',
@@ -21,7 +22,8 @@ export class AplicarEncuestaComponent implements OnInit {
         private router : Router,
         private route : ActivatedRoute,
         private is : InnovaService,
-        private gral : GeneralService
+        private gral : GeneralService,
+        private es : EncuestasService
     ) {}
 
     ngOnInit() {
@@ -70,12 +72,13 @@ export class AplicarEncuestaComponent implements OnInit {
                 }
             }
         }
-        this.is.guardaEvaluacion(arreglo, this.idEncuesta, clienteId).then(_ => {
+        this.es.aplicarEncuesta(arreglo, this.idEncuesta, clienteId)
+        /*this.is.guardaEvaluacion(arreglo, this.idEncuesta, clienteId).then(_ => {
             this.gral.abrirDialogo(1)
             todo.reset()
         }).catch(err => {
             console.error(err)
             this.gral.abrirDialogo(2)
-        })
+        })*/
     }
 }

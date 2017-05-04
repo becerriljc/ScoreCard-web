@@ -57,4 +57,10 @@ export class EncuestasService {
             })
             return data
         }
+
+        aplicarEncuesta(datos : any, encuestaId : string, clienteId : string){
+            console.log('datos: ', datos)
+            console.log('encuesta: ' , encuestaId)
+            console.log('clienteId: ', clienteId)
+        }
 }
