@@ -42,8 +42,11 @@ export class AplicaCursoComponent implements OnInit {
     }
 
     califica(frm : FormGroup){
-        this.cs.addCursoUsuario(this.key, frm.value.idUsuario, this.buscaObjeto(frm.value.idUsuario), frm.value.calificacion)
-        this.forma = this.initForm()
+        let valor = frm.value
+        let uuser = this.usuarios[valor.idUsuario]
+        this.cs.addCursoUsuario(this.key, uuser.$key, uuser, valor.calificacion).then(_ => {
+            this.forma = this.initForm()
+        })
     }
 
     verifica(frm : FormGroup) : boolean{

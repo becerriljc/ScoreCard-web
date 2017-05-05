@@ -3,8 +3,7 @@ import { MdDialogRef } from '@angular/material'
 import { MediaChange } from '@angular/flex-layout'
 
 //servicios
-import  { InnovaService } from '../../services/innova.service'
-import { FuncionesService } from '../../services/funciones.service'
+import { EncuestasService } from '../../services/encuestas.services'
 
 @Component({
     selector : 'vista-previa',
@@ -17,22 +16,21 @@ import { FuncionesService } from '../../services/funciones.service'
 export class VistaPrevia implements OnInit{
 
     key : string
-    private primitiva : any
+    private titulo : string
+    private desc : string
     private primitivas : any[] = []
     
     constructor(
         private dialogRef: MdDialogRef<VistaPrevia>,
-        private is : InnovaService,
-        private fs : FuncionesService
+        private es : EncuestasService
     ){}
 
     ngOnInit(){
-        this.primitiva = this.is.cargaEvaluacion(this.key)
-        if(typeof this.primitiva.preguntas !== 'undefined'){
-            Object.keys(this.primitiva.preguntas).map((key) => {
-                this.primitivas.push(this.primitiva.preguntas[key])
-            })
-        }
+        this.es.obtPreguntas(this.key).subscribe(listado => {
+            this.titulo = listado.titulo
+            this.desc = listado.descripcion
+            this.primitivas = listado.preguntas
+        })
     }
 
     cerrarDialogo(){

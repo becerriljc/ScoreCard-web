@@ -9,9 +9,10 @@
     <table class="table table-striped table-hover table-card">
         <thead>
             <tr>
-                <th style="width:27%;">TÍTULO EVALUACIÓN</th>
-                <th style="width:35%;">PREGUNTAS</th>
+                <th style="width:25%;">TÍTULO EVALUACIÓN</th>
+                <th style="width:32%;">PREGUNTAS</th>
                 <th style="width:25%;">ENCUESTADOS</th>
+                <th style="width:5%;"></th>
             </tr>
         </thead>
         <tbody>
@@ -19,17 +20,25 @@
             <td>{{encuesta.titulo}}</td>
             <td>
               <ol class="listas">
-                  <li *ngFor="let preg of encuesta.preguntas | keys">
-                    {{preg.value.pregunta}}
+                  <li *ngFor="let preguntas of encuesta.preguntas">
+                    {{ preguntas.pregunta}}
                   </li>
               </ol>
             </td>
             <td>
               <ol class="listas">
-                <li *ngFor="let encuestado of is.regresaEncuestados(encuesta.$key)">
-                  {{encuestado.nombre}}
+                <li *ngFor="let aplicados of encuesta.aplicados | keys">
+                  {{ aplicados.value.perfil.nombre}} | {{ aplicados.value.perfil.contacto}} 
                 </li>
               </ol>
+            </td>
+            <td>
+                <div class="espIcons example-tooltip-host" mdTooltip="Genera reporte"
+                    mdTooltipPosition="above"  (click)="generaReporteIndividual(encuesta.$key)">
+                    <a md-icon-button>
+                        <md-icon>file_download</md-icon>
+                    </a>
+                </div>
             </td>
           </tr>
         </tbody>

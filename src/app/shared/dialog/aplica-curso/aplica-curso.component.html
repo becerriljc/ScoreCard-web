@@ -11,8 +11,8 @@
                 formControlName="idUsuario"
                 placeholder="Seleccionar" 
                 class="espTotal" >
-                <md-option *ngFor="let uname of usuarios" [value]="uname.$key">
-                    {{ uname.perfil.nombre }}
+                <md-option *ngFor="let uname of usuarios; let r=index;" [value]="r">
+                    {{ uname.nombre }}
                 </md-option>
           </md-select>
       </div>

@@ -31,6 +31,7 @@ import { GeneralService } from './services/gral.services'
 import { CursosService } from './services/cursos.service'
 import { UsuarioService } from './services/usuario.service'
 import { EncuestasService } from './services/encuestas.services'
+import { ClientesService } from './services/clientes.services'
 
 // páginas sistema
 import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
@@ -130,7 +131,8 @@ import { FiltroUsuarioPipe } from './pipes/filtro-usuario.pipe';
     GeneralService,
     CursosService,
     UsuarioService,
-    EncuestasService
+    EncuestasService,
+    ClientesService
   ],
   entryComponents: [
     // Customize dialog must be import here.

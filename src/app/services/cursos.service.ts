@@ -55,13 +55,13 @@ export class CursosService {
         })
     }
 
-    addCursoUsuario(idCurso : string, idUser : string, dtUser : any, _calificacion : string){
-        let path = 'cursos-usuario/' + idCurso + '/usuarios/'
+    addCursoUsuario(idCurso : string, uid : string, dtUser : any, _calificacion : string){
+        let path = 'cursos-usuario/' + idCurso + '/asistentes/'
         let data = {
             perfil : dtUser,
             calificacion : _calificacion
         }
-        this.af.database.list(path).update(idUser, data)
+        return this.af.database.list(path).update(uid, data)
     }
 
 }

@@ -58,9 +58,25 @@ export class EncuestasService {
             return data
         }
 
-        aplicarEncuesta(datos : any, encuestaId : string, clienteId : string){
-            console.log('datos: ', datos)
-            console.log('encuesta: ' , encuestaId)
-            console.log('clienteId: ', clienteId)
+        obtPreguntas(eId : string){
+            return this.af.database.object('encuestas/' + this.datos.uid + '/' + eId)
         }
+
+        aplicarEncuesta(datos : any, encuestaId : string, clienteId : string, cliente : any){
+            let root = 'encuestas-cliente/' + encuestaId + '/aplicados/'
+            return this.af.database.list(root).update(clienteId, {perfil : cliente, respuestas: datos})
+        }
+
+        obtEncuestasUser(){
+            return this.af.database.object('encuestas/' + this.datos.uid)
+        }
+
+        obtEncuestasClientes(){
+            return this.af.database.list('encuestas-cliente')
+        }
+
+        obtEncuestaReporte(uid : string){
+            return this.af.database.object('encuestas-cliente/' + uid)
+        }
+
 }

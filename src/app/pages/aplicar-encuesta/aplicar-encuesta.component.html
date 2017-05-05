@@ -4,18 +4,18 @@
             <md-icon>keyboard_backspace</md-icon>
         </button>
         <form (ngSubmit)="guardarEncuesta(forma)" #forma="ngForm" novalidate>
-            <span class="tituloEncuesta">{{ primitiva.titulo }} para </span>
+            <span class="tituloEncuesta">{{ encuestaNom }} para </span>
             <md-select placeholder="Seleccione un cliente" class="estiloTextOpciones" name="idCliente" ngModel required>
-                <md-option *ngFor="let client of cliente | async" [value]="client.$key">
+                <md-option *ngFor="let client of clientes; let d=index;" [value]="d">
                     {{ client.perfil.nombre }}
                 </md-option>
             </md-select>
             <div fxLayout="column">
                 <div fxFlex>
-                    <p class="estiloTextoPregunta">{{ primitiva.descripcion }}</p>
+                    <p class="estiloTextoPregunta">{{ encuestaDesc }}</p>
                 </div>
-                <div fxFlex *ngIf="primitivas.length > 0">
-                    <div fxLayout="column" *ngFor="let w of primitivas; let q=index;">
+                <div fxFlex *ngIf="preguntas.length > 0">
+                    <div fxLayout="column" *ngFor="let w of preguntas; let q=index;">
                         <div fxFlex>
                             <p  class="estiloTextoPregunta">{{ w.pregunta }}</p>
                         </div>

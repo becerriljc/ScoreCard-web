@@ -1,13 +1,13 @@
 <div md-dialog-title>
-    <h3>{{ primitiva.titulo }}</h3>
+    <h3>{{ titulo }}</h3>
 </div>
 <div md-dialog-content>
     <div fxLayout="column">
         <div fxFlex>
-            <p class="estiloTextoPregunta">{{ primitiva.descripcion }}</p>
+            <p class="estiloTextoPregunta">{{ desc }}</p>
         </div>
         <div fxFlex *ngIf="primitivas.length > 0">
-            <div fxLayout="column" *ngFor="let w of primitivas"> <!--  -->
+            <div fxLayout="column" *ngFor="let w of primitivas">
                 <div fxFlex>
                     <p  class="estiloTextoPregunta">{{ w.pregunta }}</p>
                 </div>
