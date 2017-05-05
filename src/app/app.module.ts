@@ -13,6 +13,7 @@ import { Md2Module } from 'md2/module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, NoPreloading } from '@angular/router';
 import { AgmCoreModule } from 'angular2-google-maps/core';
+import { FileDropModule } from 'angular2-file-drop'
 
 import { CustomFormsModule } from 'ng2-validation';
 import { TranslateStaticLoader, TranslateLoader, TranslateModule } from 'ng2-translate';
@@ -108,6 +109,7 @@ import { FiltroUsuarioPipe } from './pipes/filtro-usuario.pipe';
     MaterialModule,
     FlexLayoutModule,
     Md2Module,
+    FileDropModule,
     //Modulo firebase inicialización
     AngularFireModule.initializeApp(firebaseConfig),
     // Replace to your Google map API key.

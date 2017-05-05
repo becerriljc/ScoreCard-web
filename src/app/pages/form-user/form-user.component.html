@@ -1,3 +1,25 @@
-<p>
-  form-user works!
-</p>
+<div class="page-content">
+        <form (ngSubmit)="guardarUsuario(forma)" #forma="ngForm" novalidate>
+            <md-input-container class="estiloTextOpciones">
+                <input mdInput 
+                    placeholder="Coloque su nombre completo" 
+                    name="nombre" 
+                    ngModel 
+                    required>
+            </md-input-container>
+            <md-select placeholder="Seleccione rol"
+                name="rol"
+                ngModel
+                required>
+                <md-option *ngFor="let role of roles" [value]="role.value">
+                    {{ role.tipo }}
+                </md-option>
+            </md-select>
+            <br />
+            <div fxLayout="row">
+                <div fxFlex>
+                  <input type="file" name="img" ngModel required placeholder="Coloca tu imagen de usuario"/>
+                </div>
+            </div>
+        </form>
+</div>

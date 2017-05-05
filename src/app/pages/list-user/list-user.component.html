@@ -15,26 +15,20 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr *ngFor="let usuario of usuarios | filtroUsuario : filtrado">
               <td class="user-avatar cell-detail cell-avatar">
-                <img src="assets/img/avatar.jpg" alt="Avatar">
-                <span>Benji Harper</span>
+                <img src="{{usuario.img}}" alt="Avatar">
+                <span>{{usuario.nombre}}</span>
                 <span class="cell-detail-description">Usuario</span>
               </td>
               <td>
-                <span>Supervisor</span>
+                <span>{{usuario.rol}}</span>
               </td>
               <td>
                 <div class="enLinea example-tooltip-host" mdTooltip="Remover usuario"
-                  mdTooltipPosition="above">
+                  mdTooltipPosition="above" (click)="accion(usuario)">
                   <a md-icon-button>
                       <md-icon>delete</md-icon>
-                  </a>
-                </div>
-                <div class="enLinea example-tooltip-host" mdTooltip="Vista previa"
-                  mdTooltipPosition="above">
-                  <a md-icon-button>
-                      <md-icon>remove_red_eye</md-icon>
                   </a>
                 </div>
               </td>
