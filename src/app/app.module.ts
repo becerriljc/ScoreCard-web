@@ -33,6 +33,7 @@ import { CursosService } from './services/cursos.service'
 import { UsuarioService } from './services/usuario.service'
 import { EncuestasService } from './services/encuestas.services'
 import { ClientesService } from './services/clientes.services'
+import { XmlHttpRequestService } from './services/xmlhttprequest.service'
 
 // páginas sistema
 import { Aprendizaje } from './pages/aprendizaje/aprendizaje.component'
@@ -61,6 +62,7 @@ import { FiltroCursosPipe } from './pipes/filtro-cursos.pipe';
 import { FiltroTestPipe } from './pipes/filtro-test.pipe';
 import { FiltroReportesPipe } from './pipes/filtro-reportes.pipe';
 import { FiltroUsuarioPipe } from './pipes/filtro-usuario.pipe';
+import { PruebasWebServiceComponent } from './pages/pruebas-web-service/pruebas-web-service.component';
 
 /**
  * Root Module
@@ -94,7 +96,8 @@ import { FiltroUsuarioPipe } from './pipes/filtro-usuario.pipe';
     ListUserComponent,
     FormUserComponent,
     PerfilComponent,
-    FiltroUsuarioPipe
+    FiltroUsuarioPipe,
+    PruebasWebServiceComponent
   ],
   imports: [
     // Angular Imports
@@ -134,7 +137,8 @@ import { FiltroUsuarioPipe } from './pipes/filtro-usuario.pipe';
     CursosService,
     UsuarioService,
     EncuestasService,
-    ClientesService
+    ClientesService,
+    XmlHttpRequestService
   ],
   entryComponents: [
     // Customize dialog must be import here.

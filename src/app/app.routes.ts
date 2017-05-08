@@ -7,6 +7,7 @@ import { CursosComponent } from './pages/cursos/cursos.component'
 import { AplicarCursoComponent } from './pages/aplicar-curso/aplicar-curso.component'
 import { PerfilComponent } from './pages/perfil/perfil.component'
 import { AdminUserComponent } from './pages/admin-user/admin-user.component'
+import { PruebasWebServiceComponent } from './pages/pruebas-web-service/pruebas-web-service.component'
 
 //servicio de autenticación
 
@@ -71,6 +72,11 @@ export const ROUTES: Routes = [
   {
     path: 'perfil',
     component: PerfilComponent,
+    canActivate : [VerificaAuth]
+  },
+  {
+    path: 'pruebas-webservice',
+    component: PruebasWebServiceComponent,
     canActivate : [VerificaAuth]
   }
 ]

@@ -20,6 +20,12 @@ export class MenuMock {
       title : 'Usuarios',
       faIcon : 'fa-users',
       link:'/admin-user'
+    },
+    {
+      name: 'pruebas-webservice',
+      title : 'WebServices',
+      faIcon : 'fa-users',
+      link:'/pruebas-webservice'
     }
   ];
 }

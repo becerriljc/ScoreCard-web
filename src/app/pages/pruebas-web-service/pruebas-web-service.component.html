@@ -1,0 +1,8 @@
+<div class="example-md-progress" *ngIf="elementos.length == 0">
+    <md-progress-spinner mode="indeterminate" style="display: inline-block"></md-progress-spinner>
+</div>
+<ul>
+    <li *ngFor="let elem of elementos; let i=index;">
+      {{ elem.name }} -- {{i}}
+    </li>
+</ul>
