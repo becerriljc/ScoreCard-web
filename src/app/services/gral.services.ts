@@ -6,7 +6,7 @@ import { MdDialog } from '@angular/material'
 
 //interfaces
 import { Caracteristica } from '../interface/item.interface'
-
+//servicios
 import { InnovaService } from './innova.service'
 
 @Injectable()

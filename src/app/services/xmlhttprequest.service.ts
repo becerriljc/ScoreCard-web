@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs/Rx'
 import * as X2JS  from 'x2js'
 
+/**
+ * Ejemplo de Web Services 
+ */
 
 @Injectable()
 export class XmlHttpRequestService {

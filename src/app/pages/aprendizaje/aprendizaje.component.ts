@@ -30,6 +30,9 @@ export class Aprendizaje implements OnInit{
             this.selectIndex = pestana
         }
         es.obtEncuestasUser().subscribe(listado => {
+            /**
+             * Descomprime las encuestas  y las muestra con sus datos
+             */
             let keys = Object.keys(listado)
             es.obtEncuestasClientes().subscribe(lista => {
                 lista.forEach(encuesta => {

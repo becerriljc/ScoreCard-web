@@ -3,6 +3,10 @@ import { NgForm } from '@angular/forms'
 import { FileUploader } from 'ng2-file-upload'
 import * as firebase from 'firebase'
 
+/**
+ * Sube un archivo al Storage de Firebase
+ */
+
 @Component({
   selector: 'app-form-user',
   templateUrl: './form-user.component.html',

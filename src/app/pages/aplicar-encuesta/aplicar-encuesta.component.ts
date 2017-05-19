@@ -46,6 +46,10 @@ export class AplicarEncuestaComponent implements OnInit {
     }
 
     guardarEncuesta(todo : NgForm){
+        /**
+         * busca si existen, checkbox en el cuestionario para cargar la respuesta y 
+         * despues ya envia el formulario con las respuestas limpias
+         */
         let forma = todo.value
         let cliente = this.clientes[forma.idCliente].perfil
         let clienteId = this.clientes[forma.idCliente].$key
